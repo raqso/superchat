@@ -10,7 +10,9 @@ export interface Message {
 
 const MAX_MESSAGES = 25;
 const messagesRef = firestore.collection("messages");
-const messagesQuery = messagesRef.orderBy("createdAt").limit(MAX_MESSAGES);
+const messagesQuery = messagesRef
+	.orderBy("createdAt")
+	.limitToLast(MAX_MESSAGES);
 
 const addMessage = (messageData: Partial<Message>) =>
 	messagesRef.add({
