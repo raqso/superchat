@@ -15,7 +15,7 @@ function App() {
 
 	return (
 		<div className="App">
-			<header className="App-header">
+			<header className="my-4">
 				<SignInOut />
 			</header>
 
