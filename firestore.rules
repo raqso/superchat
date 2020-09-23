@@ -6,11 +6,20 @@ service cloud.firestore {
     }
 
     match /messages/{messageId} {
-      allow read, write: if isSignedIn();
+      allow read: if isSignedIn();
+      allow write: if canCreateMessage();
     }
 
     function isSignedIn() {
-      return request.auth != null
+      return request.auth != null;
+    }
+
+    function canCreateMessage() {
+      return isSignedIn() && isOwner();
+    }
+
+    function isOwner() {
+      return request.auth.uid == request.resource.data.userId;
     }
   }
 }
