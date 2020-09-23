@@ -19,7 +19,6 @@ function App() {
 				<Logo />
 				<SignInOut />
 			</header>
-
 			{user && <ChatRoom />}
 		</div>
 	);

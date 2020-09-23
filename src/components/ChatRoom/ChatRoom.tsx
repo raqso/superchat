@@ -4,6 +4,8 @@ import { useCollectionData } from "react-firebase-hooks/firestore";
 import { ChatMessage } from "../ChatMessage/ChatMessage";
 import { addMessage, Message, messagesQuery } from "../../models/Message";
 
+import styles from "./ChatRoom.module.css";
+
 export const ChatRoom = () => {
 	const [messages] = useCollectionData<Message & { id: string }>(
 		messagesQuery,
@@ -35,7 +37,7 @@ export const ChatRoom = () => {
 
 	return (
 		<>
-			<section className="bg-gray-800">
+			<section className={`${styles.messagesContainer} bg-gray-800 py-4`}>
 				{messages &&
 					messages.map((message) => (
 						<ChatMessage key={message.id} message={message} />
@@ -48,7 +50,7 @@ export const ChatRoom = () => {
 				<input
 					value={formValue}
 					onChange={handleFormValueChange}
-					className="px-4 py-3"
+					className="w-full px-4 py-3 mr-2"
 				/>
 				<button
 					type="submit"

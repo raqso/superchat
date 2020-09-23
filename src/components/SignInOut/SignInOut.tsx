@@ -19,7 +19,11 @@ export const SignInOut = () => {
 	};
 
 	if (!user) {
-		return <button onClick={signInWithGoogle}>Sign in with Google</button>;
+		return (
+			<button className={buttonClasses} onClick={signInWithGoogle}>
+				Sign in with Google
+			</button>
+		);
 	}
 
 	return (
