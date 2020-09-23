@@ -1,25 +1,50 @@
-import React from "react";
-import { firestore } from "../../firebase";
+import React, { useState } from "react";
+import { auth } from "../../firebase";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import { ChatMessage } from "../ChatMessage/ChatMessage";
-import { Message } from "../../models/Message";
-
-const MAX_MESSAGES = 25;
+import { addMessage, Message, messagesQuery } from "../../models/Message";
 
 export const ChatRoom = () => {
-	const messagesRef = firestore.collection("messages");
-	const query = messagesRef.orderBy("createdAt").limit(MAX_MESSAGES);
+	const [messages] = useCollectionData<Message & { id: string }>(
+		messagesQuery,
+		{
+			idField: "id",
+		}
+	);
 
-	const [messages] = useCollectionData<Message & { id: string }>(query, {
-		idField: "id",
-	});
+	const [formValue, setFormValue] = useState("");
+	const sendMessage = async (event: React.FormEvent<HTMLFormElement>) => {
+		event.preventDefault();
+		if (!auth.currentUser) {
+			return;
+		}
+		const { uid: userId, photoURL } = auth.currentUser;
+
+		await addMessage({
+			text: formValue,
+			userId,
+			photoURL,
+		});
+		setFormValue("");
+	};
+	const handleFormValueChange = (
+		event: React.ChangeEvent<HTMLInputElement>
+	) => {
+		setFormValue(event.target.value);
+	};
 
 	return (
-		<div>
-			{messages &&
-				messages.map((message) => (
-					<ChatMessage key={message.id} message={message} />
-				))}
-		</div>
+		<>
+			<div>
+				{messages &&
+					messages.map((message) => (
+						<ChatMessage key={message.id} message={message} />
+					))}
+			</div>
+			<form onSubmit={sendMessage}>
+				<input value={formValue} onChange={handleFormValueChange} />
+				<button type="submit">Send</button>
+			</form>
+		</>
 	);
 };

@@ -1,5 +1,21 @@
-import { firestore } from "firebase";
+import { firestore as FIRESTORE } from "firebase";
+import { firestore } from "../firebase";
+
 export interface Message {
 	text: string;
-	createdAt: firestore.Timestamp;
+	userId: string;
+	photoURL: string | null;
+	createdAt: FIRESTORE.Timestamp;
 }
+
+const MAX_MESSAGES = 25;
+const messagesRef = firestore.collection("messages");
+const messagesQuery = messagesRef.orderBy("createdAt").limit(MAX_MESSAGES);
+
+const addMessage = (messageData: Partial<Message>) =>
+	messagesRef.add({
+		...messageData,
+		createdAt: FIRESTORE.FieldValue.serverTimestamp(),
+	});
+
+export { messagesQuery, addMessage };
