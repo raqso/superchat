@@ -49,6 +49,7 @@ export const ChatRoom = () => {
 			>
 				<input
 					value={formValue}
+					placeholder="Say something nice..."
 					onChange={handleFormValueChange}
 					className="w-full px-4 py-3 mr-2"
 				/>
