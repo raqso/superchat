@@ -1,5 +1,4 @@
 import React from "react";
-import "./App.css";
 
 import "firebase/firestore";
 import "firebase/auth";
@@ -15,11 +14,11 @@ function App() {
 
 	return (
 		<div className="App">
-			<header className="my-4">
+			<header className="bg-gray-900 p-4 flex justify-end">
 				<SignInOut />
 			</header>
 
-			<section>{user && <ChatRoom />}</section>
+			{user && <ChatRoom />}
 		</div>
 	);
 }

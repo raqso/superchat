@@ -35,15 +35,27 @@ export const ChatRoom = () => {
 
 	return (
 		<>
-			<div>
+			<section className="bg-gray-800">
 				{messages &&
 					messages.map((message) => (
 						<ChatMessage key={message.id} message={message} />
 					))}
-			</div>
-			<form onSubmit={sendMessage}>
-				<input value={formValue} onChange={handleFormValueChange} />
-				<button type="submit">Send</button>
+			</section>
+			<form
+				onSubmit={sendMessage}
+				className="bg-gray-700 p-4 flex justify-between"
+			>
+				<input
+					value={formValue}
+					onChange={handleFormValueChange}
+					className="px-4 py-3"
+				/>
+				<button
+					type="submit"
+					className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
+				>
+					Send
+				</button>
 			</form>
 		</>
 	);
