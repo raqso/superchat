@@ -32,7 +32,11 @@ export const ChatMessage = ({
 				</div>
 			)}
 			<p
-				aria-label={formatDistance(createdAt.toDate(), new Date())}
+				aria-label={
+					createdAt
+						? formatDistance(createdAt.toDate(), new Date())
+						: undefined
+				}
 				data-balloon-pos="down"
 				className={`mx-2 px-4 py-2 rounded-lg ${
 					isCurrentUserMessage

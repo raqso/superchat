@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { auth } from "../../firebase";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import { ChatMessage } from "../ChatMessage/ChatMessage";
@@ -7,6 +7,7 @@ import { addMessage, Message, messagesQuery } from "../../models/Message";
 import styles from "./ChatRoom.module.css";
 
 export const ChatRoom = () => {
+	const dummyRef = useRef<HTMLDivElement>(null);
 	const [messages] = useCollectionData<Message & { id: string }>(
 		messagesQuery,
 		{
@@ -29,6 +30,7 @@ export const ChatRoom = () => {
 			displayName,
 		});
 		setFormValue("");
+		dummyRef?.current?.scrollIntoView({ behavior: "smooth" });
 	};
 	const handleFormValueChange = (
 		event: React.ChangeEvent<HTMLInputElement>
@@ -45,6 +47,7 @@ export const ChatRoom = () => {
 					messages.map((message) => (
 						<ChatMessage key={message.id} message={message} />
 					))}
+				<div ref={dummyRef}></div>
 			</section>
 			<form
 				onSubmit={sendMessage}
