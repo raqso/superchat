@@ -5,6 +5,7 @@ export interface Message {
 	text: string;
 	userId: string;
 	photoURL: string | null;
+	displayName?: string | null;
 	createdAt: FIRESTORE.Timestamp;
 }
 

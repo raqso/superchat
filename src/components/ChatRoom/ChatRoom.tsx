@@ -20,12 +20,13 @@ export const ChatRoom = () => {
 		if (!auth.currentUser) {
 			return;
 		}
-		const { uid: userId, photoURL } = auth.currentUser;
+		const { uid: userId, photoURL, displayName } = auth.currentUser;
 
 		await addMessage({
 			text: formValue,
 			userId,
 			photoURL,
+			displayName,
 		});
 		setFormValue("");
 	};
