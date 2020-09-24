@@ -38,7 +38,7 @@ export const ChatMessage = ({
 						: undefined
 				}
 				data-balloon-pos="down"
-				className={`mx-2 px-4 py-2 rounded-lg ${
+				className={`mx-2 px-4 py-2 rounded-lg max-w-3/4 ${
 					isCurrentUserMessage
 						? "text-white bg-blue-600"
 						: "text-gray-900 bg-gray-100"
