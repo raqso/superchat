@@ -1,4 +1,6 @@
 import React from "react";
+import { formatDistance } from "date-fns";
+
 import { auth } from "../../firebase";
 import { Message } from "../../models/Message";
 
@@ -7,7 +9,7 @@ type Props = {
 };
 
 export const ChatMessage = ({
-	message: { text, photoURL, userId, displayName },
+	message: { text, photoURL, userId, displayName, createdAt },
 }: Props) => {
 	const isCurrentUserMessage = userId === auth?.currentUser?.uid;
 
@@ -30,6 +32,8 @@ export const ChatMessage = ({
 				</div>
 			)}
 			<p
+				aria-label={formatDistance(createdAt.toDate(), new Date())}
+				data-balloon-pos="down"
 				className={`mx-2 px-4 py-2 rounded-lg ${
 					isCurrentUserMessage
 						? "text-white bg-blue-600"
