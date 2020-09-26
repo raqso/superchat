@@ -15,11 +15,15 @@ service cloud.firestore {
     }
 
     function canCreateMessage() {
-      return isSignedIn() && isOwner();
+      return isSignedIn() && isOwner() && isNotBanned();
     }
 
     function isOwner() {
       return request.auth.uid == request.resource.data.userId;
+    }
+
+    function isNotBanned() {
+      return !exists(/databases/$(database)/documents/bans/$(request.auth.uid));
     }
   }
 }
