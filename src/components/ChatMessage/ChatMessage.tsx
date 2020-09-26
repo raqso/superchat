@@ -15,7 +15,7 @@ export const ChatMessage = ({
 
 	return (
 		<div
-			className={`flex justify-start items-center my-8 px-4 ${
+			className={`flex justify-start items-center my-8 px-1 sm:px-4 ${
 				isCurrentUserMessage ? 'flex-row-reverse' : ''
 			}`}
 		>
