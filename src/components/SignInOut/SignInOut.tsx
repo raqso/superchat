@@ -1,10 +1,10 @@
-import React from "react";
-import firebase from "firebase/app";
-import { auth } from "../../firebase";
-import { useAuthState } from "react-firebase-hooks/auth";
+import React from 'react';
+import firebase from 'firebase/app';
+import { auth } from '../../firebase';
+import { useAuthState } from 'react-firebase-hooks/auth';
 
 const buttonClasses =
-	"bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded";
+	'bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded';
 
 export const SignInOut = () => {
 	const [user] = useAuthState(auth);

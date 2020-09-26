@@ -21,6 +21,7 @@ module.exports = {
 			jsx: true, // Allows for the parsing of JSX
 			arrowFunctions: true,
 		},
+		project: "./tsconfig.json"
 	},
 	plugins: ["react", "@typescript-eslint", "prettier"],
 	settings: {
@@ -47,5 +48,9 @@ module.exports = {
 		"import/prefer-default-export": "off",
 		"@typescript-eslint/explicit-function-return-type": "off",
 		"@typescript-eslint/no-var-requires": "off",
+		"@typescript-eslint/explicit-module-boundary-types": "off",
+		"@typescript-eslint/no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars-experimental": "error",
+    "no-unused-vars": "off"
 	},
 };
