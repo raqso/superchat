@@ -26,7 +26,7 @@ const onCreate = functions.firestore
 			return;
 		}
 		return db
-			.collection('bannedUsers')
+			.collection('bans')
 			.doc(context.auth?.uid)
 			.set({ bannedAt: TIMESTAMP });
 	});
