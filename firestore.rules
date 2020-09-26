@@ -23,7 +23,7 @@ service cloud.firestore {
     }
 
     function isNotBanned() {
-      return !exists(/databases/$(database)/documents/bans/$(bannedUsers));
+      return !exists(/databases/$(database)/documents/bans/$(request.auth.uid));
     }
   }
 }
