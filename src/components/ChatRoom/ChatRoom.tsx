@@ -1,8 +1,10 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useCallback, useRef, useState, useEffect } from 'react';
 import { auth } from '../../firebase';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { ChatMessage } from '../ChatMessage/ChatMessage';
 import { addMessage, Message, messagesQuery } from '../../models/Message';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCamera } from '@fortawesome/free-solid-svg-icons';
 
 import styles from './ChatRoom.module.css';
 
@@ -46,6 +48,11 @@ export const ChatRoom = () => {
 		setFormValue(event.target.value);
 	};
 
+	const onPhotoClick = useCallback((event) => {
+		event.preventDefault();
+		console.log('Not implemented!');
+	}, []);
+
 	return (
 		<>
 			<section
@@ -61,6 +68,9 @@ export const ChatRoom = () => {
 				onSubmit={sendMessage}
 				className="bg-gray-700 p-4 flex justify-between"
 			>
+				<button className="mr-4 hover:opacity-75" onClick={onPhotoClick}>
+					<FontAwesomeIcon icon={faCamera} size="2x" color="#2d3748" />
+				</button>
 				<input
 					value={formValue}
 					placeholder="Say something nice..."
