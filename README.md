@@ -6,6 +6,15 @@ Training project to check firebase with react hooks and its real-time capabiliti
 
 [https://super-chat-796f1.web.app/](https://super-chat-796f1.web.app/)
 
+## How to start
+
+In the project directory:
+
+1. `yarn`
+2. `yarn start`
+3. App should be available on:
+   [http://localhost:3000/](http://localhost:3000/)
+
 ### Used technologies
 
 - [Typescript](https://www.typescriptlang.org/)
