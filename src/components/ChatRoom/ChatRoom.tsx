@@ -40,7 +40,9 @@ export const ChatRoom = () => {
 
 	return (
 		<>
-			<section className={`${styles.messagesContainer} bg-gray-800 py-2 px-4`}>
+			<section
+				className={`${styles.messagesContainer} bg-gray-800 py-2 px-1 sm:px-4`}
+			>
 				{messages &&
 					messages.map((message) => (
 						<ChatMessage key={message.id} message={message} />

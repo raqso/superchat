@@ -1,6 +1,6 @@
 import React from 'react';
 import { formatDistance } from 'date-fns';
-
+import './ChatMessage.css';
 import { auth } from '../../firebase';
 import { Message } from '../../models/Message';
 
@@ -15,7 +15,7 @@ export const ChatMessage = ({
 
 	return (
 		<div
-			className={`flex justify-start items-center my-8 px-4 ${
+			className={`flex justify-start items-center my-2 sm:my-3 px-1 sm:px-3 ${
 				isCurrentUserMessage ? 'flex-row-reverse' : ''
 			}`}
 		>
@@ -33,7 +33,7 @@ export const ChatMessage = ({
 					createdAt ? formatDistance(createdAt.toDate(), new Date()) : undefined
 				}
 				data-balloon-pos="down"
-				className={`mx-2 px-4 py-2 rounded-lg max-w-3/4 ${
+				className={`mx-2 px-4 py-2 rounded-lg break-words ${
 					isCurrentUserMessage
 						? 'text-white bg-blue-600'
 						: 'text-gray-900 bg-gray-100'
