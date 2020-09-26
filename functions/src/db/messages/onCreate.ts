@@ -1,7 +1,7 @@
 import * as functions from 'firebase-functions';
 const Filter = require('bad-words');
 
-import { db } from '../../config/firebase';
+import { db, TIMESTAMP } from '../../config/firebase';
 
 const filter = new Filter();
 
@@ -17,10 +17,18 @@ const onCreate = functions.firestore
 
 		const adjustedText = `I have been banned for saying: ${filter.clean(text)}`;
 
-		return db
+		await db
 			.collection('messages')
 			.doc(context.params.id)
 			.update({ text: adjustedText });
+
+		if (!context.auth?.uid) {
+			return;
+		}
+		return db
+			.collection('bannedUsers')
+			.doc(context.auth?.uid)
+			.set({ bannedAt: TIMESTAMP });
 	});
 
 export { onCreate };
