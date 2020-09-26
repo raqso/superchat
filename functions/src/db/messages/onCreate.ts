@@ -17,15 +17,17 @@ const onCreate = functions.firestore
 
 		const adjustedText = `I have been banned for saying: ${filter.clean(text)}`;
 
-		await db
-			.collection('messages')
-			.doc(context.params.id)
-			.update({ text: adjustedText });
-
-		return banUser(userId);
+		return Promise.all([
+			updateMessageText(context.params.id, adjustedText),
+			banUser(userId),
+		]);
 	});
 
 export { onCreate };
+
+function updateMessageText(id: string, text: string) {
+	return db.collection('messages').doc(id).update({ text });
+}
 
 async function banUser(userId: string) {
 	const { email, uid, displayName } = await admin.auth().getUser(userId);
