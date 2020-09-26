@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 export const LoginInfo = () => {
 	return (
@@ -19,8 +19,7 @@ export const LoginInfo = () => {
 				<div>
 					<p className="font-bold">Please login</p>
 					<p className="text-sm">
-						It is required to login before viewing and sending
-						messages.
+						It is required to login before viewing and sending messages.
 					</p>
 				</div>
 			</div>

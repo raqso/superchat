@@ -1,17 +1,17 @@
-import React from "react";
+import React from 'react';
 
-import "firebase/firestore";
-import "firebase/auth";
+import 'firebase/firestore';
+import 'firebase/auth';
 
-import { useAuthState } from "react-firebase-hooks/auth";
-import { ChatRoom } from "./components/ChatRoom/ChatRoom";
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { ChatRoom } from './components/ChatRoom/ChatRoom';
 
-import { auth } from "./firebase";
-import { SignInOut } from "./components/SignInOut/SignInOut";
-import { Logo } from "./components/Logo/Logo";
-import { LoginInfo } from "./components/LoginInfo/LoginInfo";
+import { auth } from './firebase';
+import { SignInOut } from './components/SignInOut/SignInOut';
+import { Logo } from './components/Logo/Logo';
+import { LoginInfo } from './components/LoginInfo/LoginInfo';
 
-function App() {
+const App = () => {
 	const [user] = useAuthState(auth);
 
 	return (
@@ -23,6 +23,6 @@ function App() {
 			{user ? <ChatRoom /> : <LoginInfo />}
 		</div>
 	);
-}
+};
 
 export default App;

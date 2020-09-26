@@ -1,10 +1,11 @@
-import React from "react";
-import "./Logo.css"
+import React from 'react';
+import './Logo.css';
 export const Logo = () => {
 	return (
 		<a href="/" className="flex">
-			<h1 className="text-white text-1xl my-6 mr-2 sm:text-4xl sm:my-3 sm:mr-3 left-align"
-			>NorbChat</h1>
+			<h1 className="text-white text-1xl my-6 mr-2 sm:text-4xl sm:my-3 sm:mr-3 left-align">
+				NorbChat
+			</h1>
 			<img
 				className=""
 				alt="chat logo"

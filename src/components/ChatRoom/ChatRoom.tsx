@@ -1,21 +1,21 @@
-import React, { useRef, useState } from "react";
-import { auth } from "../../firebase";
-import { useCollectionData } from "react-firebase-hooks/firestore";
-import { ChatMessage } from "../ChatMessage/ChatMessage";
-import { addMessage, Message, messagesQuery } from "../../models/Message";
+import React, { useRef, useState } from 'react';
+import { auth } from '../../firebase';
+import { useCollectionData } from 'react-firebase-hooks/firestore';
+import { ChatMessage } from '../ChatMessage/ChatMessage';
+import { addMessage, Message, messagesQuery } from '../../models/Message';
 
-import styles from "./ChatRoom.module.css";
+import styles from './ChatRoom.module.css';
 
 export const ChatRoom = () => {
 	const dummyRef = useRef<HTMLDivElement>(null);
 	const [messages] = useCollectionData<Message & { id: string }>(
 		messagesQuery,
 		{
-			idField: "id",
+			idField: 'id',
 		}
 	);
 
-	const [formValue, setFormValue] = useState("");
+	const [formValue, setFormValue] = useState('');
 	const sendMessage = async (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
 		if (!auth.currentUser) {
@@ -29,8 +29,8 @@ export const ChatRoom = () => {
 			photoURL,
 			displayName,
 		});
-		setFormValue("");
-		dummyRef?.current?.scrollIntoView({ behavior: "smooth" });
+		setFormValue('');
+		dummyRef?.current?.scrollIntoView({ behavior: 'smooth' });
 	};
 	const handleFormValueChange = (
 		event: React.ChangeEvent<HTMLInputElement>
@@ -40,9 +40,7 @@ export const ChatRoom = () => {
 
 	return (
 		<>
-			<section
-				className={`${styles.messagesContainer} bg-gray-800 py-2 px-4`}
-			>
+			<section className={`${styles.messagesContainer} bg-gray-800 py-2 px-4`}>
 				{messages &&
 					messages.map((message) => (
 						<ChatMessage key={message.id} message={message} />
