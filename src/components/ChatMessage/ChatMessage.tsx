@@ -1,6 +1,6 @@
 import React from 'react';
 import { formatDistance } from 'date-fns';
-import './ChatMessage.css';
+import styles from './ChatMessage.module.css';
 import { auth } from '../../firebase';
 import { Message } from '../../models/Message';
 
@@ -9,7 +9,7 @@ type Props = {
 };
 
 export const ChatMessage = ({
-	message: { text, photoURL, userId, displayName, createdAt },
+	message: { text, photoURL, userId, displayName, createdAt, messageImageUrl },
 }: Props) => {
 	const isCurrentUserMessage = userId === auth?.currentUser?.uid;
 
@@ -40,9 +40,14 @@ export const ChatMessage = ({
 					isCurrentUserMessage
 						? 'text-white bg-blue-600'
 						: 'text-gray-900 bg-gray-100'
-				}`}
+				} ${styles.text}`}
 			>
 				{text}
+				{messageImageUrl && (
+					<a href={messageImageUrl} target="_blank" rel="noopener noreferrer">
+						<img src={messageImageUrl} alt="message" className={styles.image} />
+					</a>
+				)}
 			</p>
 		</div>
 	);

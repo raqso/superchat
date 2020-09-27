@@ -1,0 +1,22 @@
+.uploadWrapper {
+	position: relative;
+	overflow: hidden;
+}
+
+.uploadWrapper input[type='file'] {
+	position: absolute;
+	left: 0;
+	top: 0;
+	opacity: 0;
+}
+
+.image {
+	max-width: 100%;
+	height: auto;
+}
+
+.closeButton {
+	z-index: 99999999999;
+	position: absolute;
+	right: 5px;
+}
