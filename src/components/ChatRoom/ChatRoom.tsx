@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import { auth, storage } from '../../firebase';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { ChatMessage } from '../ChatMessage/ChatMessage';
@@ -50,6 +50,8 @@ export const ChatRoom = () => {
 		setFormValue(event.target.value);
 	};
 
+	const onRemoveImage = useCallback(() => setFile(undefined), []);
+
 	return (
 		<>
 			<section
@@ -62,7 +64,11 @@ export const ChatRoom = () => {
 				<div ref={dummyRef}></div>
 			</section>
 			<div className="flex bg-gray-700 p-4 justify-between">
-				<UploadPhotoButton file={file} onFileChange={setFile} />
+				<UploadPhotoButton
+					file={file}
+					onFileChange={setFile}
+					onRemoveImage={onRemoveImage}
+				/>
 				<form onSubmit={sendMessage} className="flex justify-between w-full">
 					<input
 						value={formValue}
