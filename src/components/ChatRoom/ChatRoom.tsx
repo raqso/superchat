@@ -52,6 +52,8 @@ export const ChatRoom = () => {
 
 	const onRemoveImage = useCallback(() => setFile(undefined), []);
 
+	const canSend = !!formValue || !!file;
+
 	return (
 		<>
 			<section
@@ -78,7 +80,10 @@ export const ChatRoom = () => {
 					/>
 					<button
 						type="submit"
-						className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
+						disabled={!canSend}
+						className={`bg-blue-500 text-white font-bold py-2 px-4 rounded-full ${
+							canSend ? ' hover:bg-blue-700' : 'opacity-50'
+						}`}
 					>
 						Send
 					</button>
