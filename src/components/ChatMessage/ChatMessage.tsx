@@ -20,7 +20,10 @@ export const ChatMessage = ({
 			}`}
 		>
 			{photoURL && (
-				<div aria-label={displayName || undefined} data-balloon-pos="up">
+				<div
+					aria-label={displayName || undefined}
+					data-balloon-pos={`${isCurrentUserMessage ? 'up-right' : 'up-left'}`}
+				>
 					<img
 						src={photoURL}
 						alt={displayName || 'user avatar'}
