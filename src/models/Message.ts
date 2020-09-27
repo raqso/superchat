@@ -7,6 +7,7 @@ export interface Message {
 	photoURL: string | null;
 	displayName?: string | null;
 	createdAt: FIRESTORE.Timestamp;
+	messageImageUrl?: string;
 }
 
 const MAX_MESSAGES = 25;

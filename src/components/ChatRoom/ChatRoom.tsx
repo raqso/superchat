@@ -27,12 +27,17 @@ export const ChatRoom = () => {
 
 		const { uid: userId, photoURL, displayName } = auth.currentUser;
 
-		await addMessage({
+		const messagePhoto = file ? await uploadPhoto() : null;
+		const messageDoc: Partial<Message> = {
 			text: formValue,
 			userId,
 			photoURL,
 			displayName,
-		});
+		};
+		if (messagePhoto) {
+			messageDoc.messageImageUrl = messagePhoto;
+		}
+		await addMessage(messageDoc);
 
 		setFormValue('');
 		dummyRef?.current?.scrollIntoView({ behavior: 'smooth' });
@@ -58,22 +63,15 @@ export const ChatRoom = () => {
 		[]
 	);
 
-	const uploadPhoto = useCallback(() => {
+	const uploadPhoto = useCallback(async () => {
 		if (!file) {
 			return;
 		}
 
-		const uploadTask = storage.ref(`/images/${file.name}`).put(file);
-		uploadTask.on('state_changed', console.log, console.error, () => {
-			storage
-				.ref('images')
-				.child(file.name)
-				.getDownloadURL()
-				.then((url) => {
-					setFile(null);
-					setURL(url);
-				});
-		});
+		const uploadTask = await storage.ref(`/images/${file.name}`).put(file);
+		const imageUrl = await uploadTask.ref.getDownloadURL();
+
+		return imageUrl;
 	}, [file]);
 
 	return (
@@ -88,10 +86,7 @@ export const ChatRoom = () => {
 				<div ref={dummyRef}></div>
 			</section>
 			<div className="bg-gray-700 p-4 flex justify-between">
-				<form
-					onSubmit={uploadPhoto}
-					className={`${styles.uploadWrapper} flex hover:opacity-75`}
-				>
+				<div className={`${styles.uploadWrapper} flex hover:opacity-75`}>
 					{!file && (
 						<button className="mr-4">
 							<FontAwesomeIcon icon={faCamera} size="2x" color="#2d3748" />
@@ -99,7 +94,7 @@ export const ChatRoom = () => {
 					)}
 					{url && <img src={url} alt="element to upload" className="mr-2" />}
 					<input type="file" onChange={handleChange} />
-				</form>
+				</div>
 				<form onSubmit={sendMessage} className="flex justify-between w-full">
 					<input
 						value={formValue}
