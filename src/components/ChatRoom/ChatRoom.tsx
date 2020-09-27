@@ -1,12 +1,11 @@
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { auth, storage } from '../../firebase';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { ChatMessage } from '../ChatMessage/ChatMessage';
 import { addMessage, Message, messagesQuery } from '../../models/Message';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCamera } from '@fortawesome/free-solid-svg-icons';
 
 import styles from './ChatRoom.module.css';
+import { UploadPhotoButton } from '../UploadPhotoButton/UploadPhotoButton';
 
 export const ChatRoom = () => {
 	const dummyRef = useRef<HTMLDivElement>(null);
@@ -16,6 +15,8 @@ export const ChatRoom = () => {
 			idField: 'id',
 		}
 	);
+
+	const [file, setFile] = useState<File>();
 
 	const [formValue, setFormValue] = useState('');
 	const sendMessage = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -27,7 +28,7 @@ export const ChatRoom = () => {
 
 		const { uid: userId, photoURL, displayName } = auth.currentUser;
 
-		const messagePhoto = file ? await uploadPhoto() : null;
+		const messagePhoto = file ? await uploadPhoto(file) : null;
 		const messageDoc: Partial<Message> = {
 			text: formValue,
 			userId,
@@ -48,34 +49,6 @@ export const ChatRoom = () => {
 		setFormValue(event.target.value);
 	};
 
-	const [file, setFile] = useState<File | null>(null);
-	const [url, setURL] = useState('');
-	const handleChange = useCallback(
-		(event: React.ChangeEvent<HTMLInputElement>) => {
-			if (!event?.target?.files?.length) {
-				return;
-			}
-
-			setFile(event.target.files[0]);
-			const previewUrl = window.URL.createObjectURL(event.target.files[0]);
-			setURL(previewUrl);
-		},
-		[]
-	);
-
-	const uploadPhoto = useCallback(async () => {
-		if (!file) {
-			return;
-		}
-
-		const uploadTask = await storage
-			.ref(`/images/${auth.currentUser?.uid || 'noUid'}/messages/${file.name}`)
-			.put(file);
-		const imageUrl = await uploadTask.ref.getDownloadURL();
-
-		return imageUrl;
-	}, [file]);
-
 	return (
 		<>
 			<section
@@ -87,16 +60,8 @@ export const ChatRoom = () => {
 					))}
 				<div ref={dummyRef}></div>
 			</section>
-			<div className="bg-gray-700 p-4 flex justify-between">
-				<div className={`${styles.uploadWrapper} flex hover:opacity-75`}>
-					{!file && (
-						<button className="mr-4">
-							<FontAwesomeIcon icon={faCamera} size="2x" color="#2d3748" />
-						</button>
-					)}
-					{url && <img src={url} alt="element to upload" className="mr-2" />}
-					<input type="file" onChange={handleChange} />
-				</div>
+			<div className="flex bg-gray-700 p-4 justify-between">
+				<UploadPhotoButton file={file} onFileChange={setFile} />
 				<form onSubmit={sendMessage} className="flex justify-between w-full">
 					<input
 						value={formValue}
@@ -115,3 +80,12 @@ export const ChatRoom = () => {
 		</>
 	);
 };
+
+async function uploadPhoto(photo: File) {
+	const uploadTask = await storage
+		.ref(`/images/${auth.currentUser?.uid || 'noUid'}/messages/${photo.name}`)
+		.put(photo);
+	const imageUrl = await uploadTask.ref.getDownloadURL();
+
+	return imageUrl;
+}

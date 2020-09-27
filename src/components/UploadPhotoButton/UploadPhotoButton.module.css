@@ -1,0 +1,11 @@
+.uploadWrapper {
+	position: relative;
+	overflow: hidden;
+}
+
+.uploadWrapper input[type='file'] {
+	position: absolute;
+	left: 0;
+	top: 0;
+	opacity: 0;
+}
