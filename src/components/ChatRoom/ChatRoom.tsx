@@ -1,5 +1,5 @@
 import React, { useCallback, useRef, useState, useEffect } from 'react';
-import { auth } from '../../firebase';
+import { auth, storage } from '../../firebase';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { ChatMessage } from '../ChatMessage/ChatMessage';
 import { addMessage, Message, messagesQuery } from '../../models/Message';
@@ -48,10 +48,38 @@ export const ChatRoom = () => {
 		setFormValue(event.target.value);
 	};
 
-	const onPhotoClick = useCallback((event) => {
-		event.preventDefault();
-		console.log('Not implemented!');
-	}, []);
+	const [file, setFile] = useState<File | null>(null);
+	const [url, setURL] = useState('');
+	const handleChange = useCallback(
+		(event: React.ChangeEvent<HTMLInputElement>) => {
+			if (!event?.target?.files?.length) {
+				return;
+			}
+
+			setFile(event.target.files[0]);
+			const previewUrl = window.URL.createObjectURL(event.target.files[0]);
+			setURL(previewUrl);
+		},
+		[]
+	);
+
+	const uploadPhoto = useCallback(() => {
+		if (!file) {
+			return;
+		}
+
+		const uploadTask = storage.ref(`/images/${file.name}`).put(file);
+		uploadTask.on('state_changed', console.log, console.error, () => {
+			storage
+				.ref('images')
+				.child(file.name)
+				.getDownloadURL()
+				.then((url) => {
+					setFile(null);
+					setURL(url);
+				});
+		});
+	}, [file]);
 
 	return (
 		<>
@@ -64,29 +92,34 @@ export const ChatRoom = () => {
 					))}
 				<div ref={dummyRef}></div>
 			</section>
-			<form
-				onSubmit={sendMessage}
-				className="bg-gray-700 p-4 flex justify-between"
-			>
-				<button className="mr-4 hover:opacity-75" onClick={onPhotoClick}>
-					<FontAwesomeIcon icon={faCamera} size="2x" color="#2d3748" />
-				</button>
-				<input
-					value={formValue}
-					placeholder="Say something nice..."
-					onChange={handleFormValueChange}
-					className="w-full px-4 py-3 mr-2"
-				/>
-				<button
-					type="submit"
-					disabled={!formValue}
-					className={`bg-blue-500 text-white font-bold py-2 px-4 rounded-full ${
-						!formValue ? 'opacity-50' : ' hover:bg-blue-700'
-					}`}
+			<div className="bg-gray-700 p-4 flex justify-between">
+				<form
+					onSubmit={uploadPhoto}
+					className={`${styles.uploadWrapper} flex hover:opacity-75`}
 				>
-					Send
-				</button>
-			</form>
+					{!file && (
+						<button className="mr-4">
+							<FontAwesomeIcon icon={faCamera} size="2x" color="#2d3748" />
+						</button>
+					)}
+					{url && <img src={url} alt="element to upload" className="mr-2" />}
+					<input type="file" onChange={handleChange} />
+				</form>
+				<form onSubmit={sendMessage} className="flex justify-between w-full">
+					<input
+						value={formValue}
+						placeholder="Say something nice..."
+						onChange={handleFormValueChange}
+						className="w-full px-4 py-3 mr-2"
+					/>
+					<button
+						type="submit"
+						className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
+					>
+						Send
+					</button>
+				</form>
+			</div>
 		</>
 	);
 };
