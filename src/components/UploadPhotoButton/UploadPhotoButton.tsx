@@ -37,7 +37,11 @@ export const UploadPhotoButton = ({ file, onFileChange }: Props) => {
 				</button>
 			)}
 			{messageImageUrl && (
-				<img src={messageImageUrl} alt="element to upload" className="mr-2" />
+				<img
+					src={messageImageUrl}
+					alt="element to upload"
+					className={`${styles.image} mr-2`}
+				/>
 			)}
 			<input type="file" onChange={handleChange} />
 		</div>
