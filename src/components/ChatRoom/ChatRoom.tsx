@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { auth } from '../../firebase';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { ChatMessage } from '../ChatMessage/ChatMessage';
@@ -8,6 +8,11 @@ import styles from './ChatRoom.module.css';
 
 export const ChatRoom = () => {
 	const dummyRef = useRef<HTMLDivElement>(null);
+
+	useEffect(() => {
+		dummyRef?.current?.scrollIntoView({ behavior: 'smooth' });
+	});
+
 	const [messages] = useCollectionData<Message & { id: string }>(
 		messagesQuery,
 		{
