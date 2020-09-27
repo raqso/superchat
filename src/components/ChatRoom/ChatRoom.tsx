@@ -18,9 +18,11 @@ export const ChatRoom = () => {
 	const [formValue, setFormValue] = useState('');
 	const sendMessage = async (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
+
 		if (!auth.currentUser) {
 			return;
 		}
+
 		const { uid: userId, photoURL, displayName } = auth.currentUser;
 
 		await addMessage({
@@ -29,6 +31,7 @@ export const ChatRoom = () => {
 			photoURL,
 			displayName,
 		});
+
 		setFormValue('');
 		dummyRef?.current?.scrollIntoView({ behavior: 'smooth' });
 	};
@@ -61,7 +64,10 @@ export const ChatRoom = () => {
 				/>
 				<button
 					type="submit"
-					className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
+					disabled={!formValue}
+					className={`bg-blue-500 text-white font-bold py-2 px-4 rounded-full ${
+						!formValue ? 'opacity-50' : ' hover:bg-blue-700'
+					}`}
 				>
 					Send
 				</button>
