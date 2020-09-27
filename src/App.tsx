@@ -15,7 +15,7 @@ const App = () => {
 	const [user] = useAuthState(auth);
 
 	return (
-		<div>
+		<div className="h-screen flex flex-col">
 			<header className="bg-gray-900 p-4 flex justify-between">
 				<Logo />
 				<SignInOut />
