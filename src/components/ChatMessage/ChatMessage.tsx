@@ -44,7 +44,9 @@ export const ChatMessage = ({
 			>
 				{text}
 				{messageImageUrl && (
-					<img src={messageImageUrl} alt="message" className={styles.image} />
+					<a href={messageImageUrl} target="_blank" rel="noopener noreferrer">
+						<img src={messageImageUrl} alt="message" className={styles.image} />
+					</a>
 				)}
 			</p>
 		</div>
