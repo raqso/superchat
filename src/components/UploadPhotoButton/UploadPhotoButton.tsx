@@ -10,7 +10,6 @@ type Props = {
 };
 
 export const UploadPhotoButton = ({ file, onFileChange }: Props) => {
-	const [messageImageFile, setMessageImageFile] = useState(file);
 	const [messageImageUrl, setMessageImageUrl] = useState('');
 
 	const handleChange = useCallback(
@@ -20,28 +19,27 @@ export const UploadPhotoButton = ({ file, onFileChange }: Props) => {
 			}
 
 			const newFile = event.target.files[0];
-			setMessageImageFile(newFile);
 			onFileChange(newFile);
 		},
 		[onFileChange]
 	);
 
 	const removeImage = useCallback(() => {
-		setMessageImageFile(undefined);
+		setMessageImageUrl('');
 	}, []);
 
 	useEffect(() => {
-		if (!messageImageFile) {
+		if (!file) {
 			return setMessageImageUrl('');
 		}
 
-		const previewUrl = window.URL.createObjectURL(messageImageFile);
+		const previewUrl = window.URL.createObjectURL(file);
 		setMessageImageUrl(previewUrl);
-	}, [messageImageFile]);
+	}, [file]);
 
 	return (
 		<div className={`${styles.uploadWrapper} flex hover:opacity-75 pa-2`}>
-			{!messageImageFile && (
+			{!file && (
 				<button className="mr-4">
 					<FontAwesomeIcon icon={faCamera} size="2x" color="#2d3748" />
 				</button>
