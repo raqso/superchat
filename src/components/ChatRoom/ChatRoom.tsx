@@ -73,7 +73,9 @@ export const ChatRoom = () => {
 			return;
 		}
 
-		const uploadTask = await storage.ref(`/images/${file.name}`).put(file);
+		const uploadTask = await storage
+			.ref(`/images/${auth.currentUser?.uid || 'noUid'}/messages/${file.name}`)
+			.put(file);
 		const imageUrl = await uploadTask.ref.getDownloadURL();
 
 		return imageUrl;
