@@ -14,3 +14,9 @@
 	max-width: 100%;
 	height: auto;
 }
+
+.closeButton {
+	z-index: 99999999999;
+	position: absolute;
+	right: 5px;
+}

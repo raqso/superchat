@@ -46,6 +46,7 @@ export const ChatRoom = () => {
 		await addMessage(messageDoc);
 
 		setFormValue('');
+		setFile(undefined);
 		dummyRef?.current?.scrollIntoView({ behavior: 'smooth' });
 	};
 	const handleFormValueChange = (
