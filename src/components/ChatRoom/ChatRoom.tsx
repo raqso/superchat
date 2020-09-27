@@ -8,6 +8,11 @@ import styles from './ChatRoom.module.css';
 
 export const ChatRoom = () => {
 	const dummyRef = useRef<HTMLDivElement>(null);
+
+	React.useEffect(() => {
+		dummyRef?.current?.scrollIntoView({ behavior: 'smooth' });
+	});
+
 	const [messages] = useCollectionData<Message & { id: string }>(
 		messagesQuery,
 		{
