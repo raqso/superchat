@@ -28,7 +28,7 @@
 		"prestart": "yarn build:css",
 		"start": "react-scripts start",
 		"prebuild": "yarn build:css",
-		"build": "npm run build:css && react-scripts build",
+		"build": "react-scripts build",
 		"test": "react-scripts test",
 		"test:ci": "react-scripts test --watchAll=false",
 		"lint": "eslint src --ext .js,.jsx,.ts,.tsx",
