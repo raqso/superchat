@@ -1,4 +1,10 @@
-[![Actions Status](https://github.com/raqso/superchat/workflows/Build/badge.svg)](https://github.com/raqso/superchat/actions)
+<p align="center">
+<img src="https://user-images.githubusercontent.com/13930984/94484511-d735eb00-01dc-11eb-9213-77a3b7975a36.png" alt="Chat icon" />
+</p>
+
+<p align="center">
+<img src="https://github.com/raqso/superchat/workflows/Build/badge.svg" alt="Build status badge" />
+</p>
 
 # Chat demo app
 
