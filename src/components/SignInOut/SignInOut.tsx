@@ -1,6 +1,10 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faGoogle, faGithub } from '@fortawesome/free-brands-svg-icons';
+import {
+	faGoogle,
+	faGithub,
+	faFacebook,
+} from '@fortawesome/free-brands-svg-icons';
 
 import firebase from 'firebase/app';
 import { auth } from '../../firebase';
@@ -28,6 +32,12 @@ export const SignInOut = () => {
 				>
 					<FontAwesomeIcon icon={faGithub} color="#2d3748" />
 				</button>
+				<button
+					className={`${buttonClasses} border-none`}
+					onClick={signInWithFacebook}
+				>
+					<FontAwesomeIcon icon={faFacebook} color="#2d3748" />
+				</button>
 			</div>
 		);
 	}
@@ -46,6 +56,11 @@ function signInWithGoogle() {
 
 function signInWithGithub() {
 	const provider = new firebase.auth.GithubAuthProvider();
+	auth.signInWithPopup(provider);
+}
+
+function signInWithFacebook() {
+	const provider = new firebase.auth.FacebookAuthProvider();
 	auth.signInWithPopup(provider);
 }
 
