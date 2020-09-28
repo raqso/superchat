@@ -1,3 +1,16 @@
+<p align="center">
+   <img src="https://user-images.githubusercontent.com/13930984/94484511-d735eb00-01dc-11eb-9213-77a3b7975a36.png" alt="Chat icon" />
+</p>
+
+<p align="center">
+   <a href="https://sonarcloud.io/dashboard?id=raqso_superchat">
+      <img src="https://sonarcloud.io/api/project_badges/measure?project=raqso_superchat&metric=alert_status" alt="Sonarcloud Status" />
+   </a>
+   <a href="https://github.com/raqso/superchat/actions">
+      <img src="https://github.com/raqso/superchat/workflows/Build/badge.svg" alt="Build status badge" />
+   </a>
+</p>
+
 # Chat demo app
 
 Training project to check firebase with react hooks and its real-time capabilities.
