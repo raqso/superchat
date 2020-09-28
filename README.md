@@ -1,3 +1,5 @@
+[![Actions Status](https://github.com/raqso/superchat/workflows/Build/badge.svg)](https://github.com/raqso/superchat/actions)
+
 # Chat demo app
 
 Training project to check firebase with react hooks and its real-time capabilities.
