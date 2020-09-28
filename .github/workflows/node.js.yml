@@ -29,6 +29,8 @@ jobs:
         run: yarn lint
       - name: Unit tests
         run: yarn test:ci
+        env:
+          CI: true
       - name: Build React app
         run: yarn build
       - name: Archive Production Artifact
