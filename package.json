@@ -27,7 +27,7 @@
 	"scripts": {
 		"prestart": "yarn build:css",
 		"start": "react-scripts start",
-		"prebuild": "yarn build:css",
+		"prebuild": "NODE_ENV=production yarn build:css",
 		"build": "react-scripts build",
 		"test": "react-scripts test",
 		"test:ci": "react-scripts test --watchAll=false",
