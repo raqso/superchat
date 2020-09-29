@@ -43,6 +43,13 @@ export const ChatRoom = () => {
 		if (messagePhoto) {
 			messageDoc.messageImageUrl = messagePhoto;
 		}
+
+		const isTextInvalid = formValue.replace(/  +/g, ' ');
+
+		if (isTextInvalid === ' ') {
+			return;
+		}
+
 		await addMessage(messageDoc);
 
 		setFormValue('');
