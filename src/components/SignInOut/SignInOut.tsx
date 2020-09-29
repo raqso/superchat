@@ -1,4 +1,11 @@
 import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+	faGoogle,
+	faGithub,
+	faFacebook,
+} from '@fortawesome/free-brands-svg-icons';
+
 import firebase from 'firebase/app';
 import { auth } from '../../firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
@@ -9,20 +16,29 @@ const buttonClasses =
 export const SignInOut = () => {
 	const [user] = useAuthState(auth);
 
-	const signInWithGoogle = () => {
-		const provider = new firebase.auth.GoogleAuthProvider();
-		auth.signInWithPopup(provider);
-	};
-
-	const signOut = () => {
-		auth.signOut();
-	};
-
 	if (!user) {
 		return (
-			<button className={buttonClasses} onClick={signInWithGoogle}>
-				Sign in with Google
-			</button>
+			<div className="p-6">
+				<span className="text-white text-lg">Sign in with</span>
+				<button
+					className={`${buttonClasses} border-none`}
+					onClick={signInWithGoogle}
+				>
+					<FontAwesomeIcon icon={faGoogle} color="#2d3748" />
+				</button>
+				<button
+					className={`${buttonClasses} border-none`}
+					onClick={signInWithGithub}
+				>
+					<FontAwesomeIcon icon={faGithub} color="#2d3748" />
+				</button>
+				<button
+					className={`${buttonClasses} border-none`}
+					onClick={signInWithFacebook}
+				>
+					<FontAwesomeIcon icon={faFacebook} color="#2d3748" />
+				</button>
+			</div>
 		);
 	}
 
@@ -32,3 +48,22 @@ export const SignInOut = () => {
 		</button>
 	);
 };
+
+function signInWithGoogle() {
+	const provider = new firebase.auth.GoogleAuthProvider();
+	auth.signInWithPopup(provider);
+}
+
+function signInWithGithub() {
+	const provider = new firebase.auth.GithubAuthProvider();
+	auth.signInWithPopup(provider);
+}
+
+function signInWithFacebook() {
+	const provider = new firebase.auth.FacebookAuthProvider();
+	auth.signInWithPopup(provider);
+}
+
+function signOut() {
+	auth.signOut();
+}
