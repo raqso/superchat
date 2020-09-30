@@ -51,7 +51,12 @@ export const UploadPhotoButton = ({
 					</div>
 				</>
 			)}
-			<input type="file" onChange={handleChange} disabled={!!file} />
+			<input
+				type="file"
+				accept="image/*"
+				onChange={handleChange}
+				disabled={!!file}
+			/>
 		</div>
 	);
 };
