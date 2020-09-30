@@ -1,5 +1,5 @@
 import React, { useCallback, useRef, useState, useEffect } from 'react';
-import { auth, storage } from '../../firebase';
+import { auth, storage } from '../../config/firebase';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { ChatMessage } from '../ChatMessage/ChatMessage';
 import { addMessage, Message, messagesQuery } from '../../models/Message';

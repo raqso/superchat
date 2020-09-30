@@ -24,8 +24,11 @@ Training project to check firebase with react hooks and its real-time capabiliti
 In the project directory:
 
 1. `yarn`
-2. `yarn start`
-3. App should be available on:
+2. Copy the _.env.example_ file and change its name to _.env_
+3. Fill up all keys in the _.env_ file with proper values. Regarding firebase values, you can find those in the [firebase console](https://console.firebase.google.com/).
+4. `yarn start`
+
+5. App should be available on:
    [http://localhost:3000/](http://localhost:3000/)
 
 ### Used technologies

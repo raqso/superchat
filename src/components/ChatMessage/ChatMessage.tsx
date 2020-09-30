@@ -1,7 +1,7 @@
 import React from 'react';
 import { formatDistance } from 'date-fns';
 import styles from './ChatMessage.module.css';
-import { auth } from '../../firebase';
+import { auth } from '../../config/firebase';
 import { Message } from '../../models/Message';
 
 type Props = {
