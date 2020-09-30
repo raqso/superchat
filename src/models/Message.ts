@@ -1,5 +1,5 @@
 import { firestore as FIRESTORE } from 'firebase';
-import { firestore } from '../firebase';
+import { firestore } from '../config/firebase';
 
 export interface Message {
 	text: string;

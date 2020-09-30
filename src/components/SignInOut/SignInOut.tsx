@@ -7,7 +7,7 @@ import {
 } from '@fortawesome/free-brands-svg-icons';
 
 import firebase from 'firebase/app';
-import { auth } from '../../firebase';
+import { auth } from '../../config/firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
 
 const buttonClasses =
