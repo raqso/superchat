@@ -8,6 +8,7 @@ export interface Message {
 	displayName?: string | null;
 	createdAt: FIRESTORE.Timestamp;
 	messageImageUrl?: string;
+	roomId?: string;
 }
 
 const MAX_MESSAGES = 25;
