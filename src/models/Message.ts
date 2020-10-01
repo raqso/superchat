@@ -1,4 +1,4 @@
-import { firestore as FIRESTORE } from 'firebase';
+import { firestore as FIRESTORE } from 'firebase/app';
 import { firestore } from '../config/firebase';
 
 export interface Message {
