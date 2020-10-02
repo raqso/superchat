@@ -7,12 +7,14 @@ import { auth } from './config/firebase';
 import { SignInOut } from './components/SignInOut/SignInOut';
 import { Logo } from './components/Logo/Logo';
 import { LoginInfo } from './components/LoginInfo/LoginInfo';
+import { SideBar } from './components/SideBar/SideBar';
 
 const App = () => {
 	const [user] = useAuthState(auth);
 
 	return (
 		<div className="h-screen flex flex-col">
+			<SideBar />
 			<header className="bg-gray-900 p-4 flex justify-between">
 				<Logo />
 				<SignInOut />
