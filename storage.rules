@@ -8,7 +8,7 @@ service firebase.storage {
 
   function isImage() {
   	let type = request.resource.contentType;
-    let imageTypes = ['image/bmp','image/gif','image/png','image/jpg','image/jpeg'];
+    let imageTypes = ['image/bmp','image/gif','image/png','image/jpg','image/jpeg','image/webp'];
 
     return type in imageTypes;
   }
