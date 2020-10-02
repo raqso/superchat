@@ -9,6 +9,7 @@ export interface Message {
 	createdAt: FIRESTORE.Timestamp;
 	messageImageUrl?: string;
 	roomId?: string;
+	public: boolean;
 }
 
 const MAX_MESSAGES = 25;

@@ -49,6 +49,11 @@ export const ChatRoom = () => {
 		if (messagePhoto) {
 			messageDoc.messageImageUrl = messagePhoto;
 		}
+		if (roomId) {
+			messageDoc.roomId = roomId;
+		} else {
+			messageDoc.public = true;
+		}
 
 		const isTextInvalid = formValue.replace(/  +/g, ' ');
 
