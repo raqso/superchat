@@ -1,4 +1,4 @@
-import { firestore, TIMESTAMP } from '../firebase';
+import { firestore, TIMESTAMP } from '../config/firebase';
 
 interface Room {
 	uid: string;
