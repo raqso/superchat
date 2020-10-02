@@ -6,6 +6,7 @@ import {
 	faSignOutAlt,
 	faWalking,
 } from '@fortawesome/free-solid-svg-icons';
+import { signOut } from '../../helpers/auth';
 
 type Props = {
 	opened?: boolean;
@@ -13,7 +14,7 @@ type Props = {
 
 type SideBarLinkProps = {
 	active?: boolean;
-	href: string;
+	href: string | ((event: React.MouseEvent<HTMLAnchorElement>) => void);
 	title: string;
 	faIcon?: IconDefinition;
 };
@@ -26,10 +27,11 @@ const classes = {
 
 const SideBarLink = ({ active, href, title, faIcon }: SideBarLinkProps) => (
 	<a
-		className={`flex items-center mt-5 py-2 px-8 ${
+		className={`flex items-center mt-5 py-2 px-8 cursor-pointer ${
 			active ? classes.active : classes.inactive
 		}`}
-		href={href}
+		href={typeof href === 'string' ? href : undefined}
+		onClick={typeof href === 'function' ? href : undefined}
 	>
 		{faIcon && <FontAwesomeIcon icon={faIcon} />}
 
@@ -58,7 +60,11 @@ export const SideBar = ({ opened }: Props) => {
 								faIcon={faPlusCircle}
 							/>
 							<SideBarLink href="#" title="Join room" faIcon={faWalking} />
-							<SideBarLink href="#" title="Sign out" faIcon={faSignOutAlt} />
+							<SideBarLink
+								href={signOut}
+								title="Sign out"
+								faIcon={faSignOutAlt}
+							/>
 						</nav>
 					</div>
 				</div>
