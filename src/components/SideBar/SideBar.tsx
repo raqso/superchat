@@ -9,6 +9,8 @@ import {
 import OutsideClickHandler from 'react-outside-click-handler';
 
 import { signOut } from '../../helpers/auth';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { auth } from '../../config/firebase';
 
 type Props = {
 	opened?: boolean;
@@ -43,6 +45,8 @@ const SideBarLink = ({ active, href, title, faIcon }: SideBarLinkProps) => (
 );
 
 export const SideBar = ({ opened, onOutsideClick }: Props) => {
+	const [user] = useAuthState(auth);
+
 	return (
 		<OutsideClickHandler onOutsideClick={onOutsideClick} disabled={!opened}>
 			<aside
@@ -62,11 +66,14 @@ export const SideBar = ({ opened, onOutsideClick }: Props) => {
 					<nav className="mt-10">
 						<SideBarLink href="#" title="Create a room" faIcon={faPlusCircle} />
 						<SideBarLink href="#" title="Join room" faIcon={faWalking} />
-						<SideBarLink
-							href={signOut}
-							title="Sign out"
-							faIcon={faSignOutAlt}
-						/>
+
+						{user && (
+							<SideBarLink
+								href={signOut}
+								title="Sign out"
+								faIcon={faSignOutAlt}
+							/>
+						)}
 					</nav>
 				</div>
 			</aside>
