@@ -8,12 +8,16 @@ export const useRoom = () => {
 	const [user] = useAuthState(auth);
 
 	const createRoom = useCallback(async () => {
-		const { id } = await create({
-			public: false,
-			adminUid: user?.uid,
-		});
+		try {
+			const { id } = await create({
+				public: false,
+				adminUid: user?.uid,
+			});
 
-		goToRoom(id);
+			goToRoom(id);
+		} catch (error) {
+			console.error(error);
+		}
 	}, [user]);
 
 	return { createRoom, goToRoom, promptForRoom };
