@@ -1,4 +1,4 @@
-import React, { SyntheticEvent, useEffect, useState } from 'react';
+import React, { SyntheticEvent } from 'react';
 import { Carousel } from '@giphy/react-components';
 import { IGif } from '@giphy/js-types';
 
@@ -13,12 +13,12 @@ type Props = {
 };
 
 export function GifSelector({ onGifClick }: Props) {
-	const { searchText, handleSearchTextChange, fetchGifs } = useGifSelector();
-	const [carouselKey, setCarouselKey] = useState(1);
-
-	useEffect(() => {
-		setCarouselKey((currentKey) => currentKey + 1);
-	}, [searchText]);
+	const {
+		searchText,
+		handleSearchTextChange,
+		carouselKey,
+		fetchGifs,
+	} = useGifSelector();
 
 	return (
 		<div className="w-full flex flex-col bg-gray-800">

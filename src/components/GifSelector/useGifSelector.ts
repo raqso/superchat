@@ -1,14 +1,17 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { GiphyFetch } from '@giphy/js-fetch-api';
+import { debounce } from 'debounce';
 
 import { config } from '../../config';
 
 const MAX_GIFS = 3;
+const SEARCH_DELAY_IN_MS = 75;
 
 const giphyFetch = new GiphyFetch(config.giphyApiKey);
 
 export const useGifSelector = () => {
 	const [searchText, setSearchText] = useState('dogs');
+	const [carouselKey, setCarouselKey] = useState(1);
 
 	const handleSearchTextChange = (
 		event: React.ChangeEvent<HTMLInputElement>
@@ -22,5 +25,21 @@ export const useGifSelector = () => {
 		[searchText]
 	);
 
-	return { searchText, handleSearchTextChange, fetchGifs };
+	useEffect(
+		debounce(() => {
+			let isUnmounted = false;
+			if (isUnmounted) {
+				return;
+			}
+
+			setCarouselKey((currentKey) => currentKey + 1);
+
+			return () => {
+				isUnmounted = true;
+			};
+		}, SEARCH_DELAY_IN_MS),
+		[searchText]
+	);
+
+	return { searchText, handleSearchTextChange, fetchGifs, carouselKey };
 };
