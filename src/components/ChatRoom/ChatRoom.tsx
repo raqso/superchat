@@ -20,12 +20,12 @@ import { useChatroom } from './useChatroom';
 
 export const ChatRoom = () => {
 	const dummyRef = useRef<HTMLDivElement>(null);
-
+	const scrollToLastMessage = () =>
+		dummyRef?.current?.scrollIntoView({
+			behavior: 'smooth',
+			block: 'nearest',
+		});
 	const { gifSelectorOpened, toggleGifSelector } = useChatroom();
-
-	useEffect(() => {
-		dummyRef?.current?.scrollIntoView({ behavior: 'smooth' });
-	});
 
 	const [, roomId] = window.location.pathname.split('/');
 
@@ -73,7 +73,7 @@ export const ChatRoom = () => {
 
 		setFormValue('');
 		setFile(undefined);
-		dummyRef?.current?.scrollIntoView({ behavior: 'smooth' });
+		scrollToLastMessage();
 	};
 
 	const handleFormValueChange = (
@@ -104,11 +104,16 @@ export const ChatRoom = () => {
 
 			await addMessage(messageDoc);
 			toggleGifSelector();
-			dummyRef?.current?.scrollIntoView({ behavior: 'smooth' });
+			scrollToLastMessage();
 		} catch (error) {
 			console.error(error);
 		}
 	};
+
+	useEffect(() => {
+		const SCROLL_DELAY_IN_MS = 1000;
+		setTimeout(scrollToLastMessage, SCROLL_DELAY_IN_MS);
+	}, [messages]);
 
 	return (
 		<>
