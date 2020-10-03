@@ -16,16 +16,18 @@ export function GifSelector({ onGifClick }: Props) {
 	const { searchText, handleSearchTextChange, fetchGifs } = useGifSelector();
 
 	return (
-		<div className="w-full flex flex-col">
+		<div className="w-full flex flex-col bg-gray-800">
 			<SearchBox
 				searchText={searchText}
 				handleSearchTextChange={handleSearchTextChange}
 			/>
 			<Carousel
 				fetchGifs={fetchGifs}
-				gifHeight={200}
-				gutter={6}
+				gifHeight={75}
 				onGifClick={onGifClick}
+				backgroundColor="#4a5568"
+				className="p-2"
+				noLink
 			/>
 		</div>
 	);

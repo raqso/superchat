@@ -3,12 +3,12 @@ import { GiphyFetch } from '@giphy/js-fetch-api';
 
 import { config } from '../../config';
 
-const MAX_GIFS = 10;
+const MAX_GIFS = 3;
 
 const giphyFetch = new GiphyFetch(config.giphyApiKey);
 
 export const useGifSelector = () => {
-	const [searchText, setSearchText] = useState('');
+	const [searchText, setSearchText] = useState('dogs');
 
 	const handleSearchTextChange = (
 		event: React.ChangeEvent<HTMLInputElement>
