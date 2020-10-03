@@ -1,6 +1,7 @@
 import React, { useCallback, useRef, useState, useEffect } from 'react';
 import { auth, storage } from '../../config/firebase';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
+import { IGif } from '@giphy/js-types';
 
 import { ChatMessage } from '../ChatMessage/ChatMessage';
 import {
@@ -74,6 +75,7 @@ export const ChatRoom = () => {
 		setFile(undefined);
 		dummyRef?.current?.scrollIntoView({ behavior: 'smooth' });
 	};
+
 	const handleFormValueChange = (
 		event: React.ChangeEvent<HTMLInputElement>
 	) => {
@@ -83,6 +85,30 @@ export const ChatRoom = () => {
 	const onRemoveImage = useCallback(() => setFile(undefined), []);
 
 	const canSend = !!formValue || !!file;
+
+	const sendGif = async (gif: IGif) => {
+		try {
+			if (!auth.currentUser) {
+				return;
+			}
+
+			const { uid: userId, photoURL, displayName } = auth.currentUser;
+
+			const messageDoc: Partial<Message> = {
+				text: formValue,
+				userId,
+				photoURL,
+				displayName,
+				messageImageUrl: gif.images.downsized.url,
+			};
+
+			await addMessage(messageDoc);
+			toggleGifSelector();
+			dummyRef?.current?.scrollIntoView({ behavior: 'smooth' });
+		} catch (error) {
+			console.error(error);
+		}
+	};
 
 	return (
 		<>
@@ -99,9 +125,7 @@ export const ChatRoom = () => {
 					))}
 				<div ref={dummyRef}></div>
 			</section>
-			{gifSelectorOpened && (
-				<GifSelector onGifClick={(selectedGif) => console.log(selectedGif)} />
-			)}
+			{gifSelectorOpened && <GifSelector onGifClick={sendGif} />}
 			<div className="flex bg-gray-700 p-2 justify-between">
 				<div className="p-1">
 					<UploadPhotoButton
