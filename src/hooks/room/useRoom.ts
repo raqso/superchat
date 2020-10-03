@@ -2,7 +2,7 @@ import { useCallback } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 
 import { auth } from '../../config/firebase';
-import { create } from '../../models/Room';
+import { create, isExists } from '../../models/Room';
 
 export const useRoom = () => {
 	const [user] = useAuthState(auth);
@@ -23,10 +23,10 @@ function goToRoom(id: string) {
 	window.location.href = `/${id}`;
 }
 
-function promptForRoom() {
+async function promptForRoom() {
 	const roomId = prompt('Enter room ID');
 
-	if (!roomId) {
+	if (!roomId || !(await isExists(roomId))) {
 		return;
 	}
 

@@ -13,4 +13,10 @@ const create = (data: Partial<Room>) =>
 		createdAt: TIMESTAMP,
 	});
 
-export { create };
+const isExists = async (roomId: string): Promise<boolean> => {
+	const roomSnap = await firestore.doc(`rooms/${roomId}`).get();
+
+	return roomSnap.exists;
+};
+
+export { create, isExists };
