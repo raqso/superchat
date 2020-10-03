@@ -2,6 +2,7 @@ import React from 'react';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
+	faLifeRing,
 	faPlusCircle,
 	faSignOutAlt,
 	faWalking,
@@ -24,21 +25,36 @@ type SideBarLinkProps = {
 	href: string | ((event: React.MouseEvent<HTMLAnchorElement>) => void);
 	title: string;
 	faIcon?: IconDefinition;
+	newWindow?: boolean;
+	variant?: 'primary' | 'secondary';
 };
 
 const classes = {
+	secondary: 'text-gray-600 hover:text-gray-500',
 	active: 'bg-gray-700 text-gray-100 border-r-4 border-gray-100',
 	inactive:
 		' text-gray-400 border-r-4 border-gray-800 hover:bg-gray-700 hover:text-gray-100 hover:border-gray-100',
 };
 
-const SideBarLink = ({ active, href, title, faIcon }: SideBarLinkProps) => (
+const SideBarLink = ({
+	active,
+	href,
+	title,
+	faIcon,
+	newWindow,
+	variant = 'primary',
+}: SideBarLinkProps) => (
 	<a
-		className={`flex items-center mt-5 py-2 px-8 cursor-pointer ${
-			active ? classes.active : classes.inactive
+		className={`flex items-center my-3 py-2 px-8 cursor-pointer ${
+			variant === 'secondary'
+				? classes.secondary
+				: active
+				? classes.active
+				: classes.inactive
 		}`}
 		href={typeof href === 'string' ? href : undefined}
 		onClick={typeof href === 'function' ? href : undefined}
+		target={newWindow ? '_blank' : ''}
 	>
 		{faIcon && <FontAwesomeIcon icon={faIcon} />}
 
@@ -58,7 +74,7 @@ export const SideBar = ({ opened, onOutsideClick }: Props) => {
 						opened ? 'translate-x-0' : '-translate-x-full'
 					}`}
 				>
-					<div className="w-64 h-screen bg-gray-900 py-4 divide-y divide-gray-800">
+					<div className="flex flex-col w-64 h-screen bg-gray-900 py-4 divide-y divide-gray-800">
 						<div className="flex items-center justify-center mb-6">
 							<Logo withoutText />
 						</div>
@@ -90,6 +106,15 @@ export const SideBar = ({ opened, onOutsideClick }: Props) => {
 								/>
 							)}
 						</nav>
+						<div className="h-full flex flex-col justify-end">
+							<SideBarLink
+								href="https://pl.linkedin.com/in/zdzislaw-bela"
+								title="Support"
+								faIcon={faLifeRing}
+								newWindow
+								variant="secondary"
+							/>
+						</div>
 					</div>
 				</aside>
 			</OutsideClickHandler>
