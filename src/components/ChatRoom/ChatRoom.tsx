@@ -13,9 +13,14 @@ import {
 import styles from './ChatRoom.module.css';
 import { UploadPhotoButton } from '../UploadPhotoButton/UploadPhotoButton';
 import { GifSelector } from '../GifSelector/GifSelector';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFilm } from '@fortawesome/free-solid-svg-icons';
+import { useChatroom } from './useChatroom';
 
 export const ChatRoom = () => {
 	const dummyRef = useRef<HTMLDivElement>(null);
+
+	const { gifSelectorOpened, toggleGifSelector } = useChatroom();
 
 	useEffect(() => {
 		dummyRef?.current?.scrollIntoView({ behavior: 'smooth' });
@@ -94,13 +99,20 @@ export const ChatRoom = () => {
 					))}
 				<div ref={dummyRef}></div>
 			</section>
-			<GifSelector onGifClick={(selectedGif) => console.log(selectedGif)} />
+			{gifSelectorOpened && (
+				<GifSelector onGifClick={(selectedGif) => console.log(selectedGif)} />
+			)}
 			<div className="flex bg-gray-700 p-2 justify-between">
-				<UploadPhotoButton
-					file={file}
-					onFileChange={setFile}
-					onRemoveImage={onRemoveImage}
-				/>
+				<div className="p-1">
+					<UploadPhotoButton
+						file={file}
+						onFileChange={setFile}
+						onRemoveImage={onRemoveImage}
+					/>
+					<button onClick={toggleGifSelector}>
+						<FontAwesomeIcon icon={faFilm} size="2x" color="#2d3748" />
+					</button>
+				</div>
 				<form onSubmit={sendMessage} className="flex justify-between w-full">
 					<input
 						value={formValue}
