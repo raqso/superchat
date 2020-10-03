@@ -7,6 +7,8 @@
 		"@fortawesome/free-brands-svg-icons": "^5.14.0",
 		"@fortawesome/free-solid-svg-icons": "^5.14.0",
 		"@fortawesome/react-fontawesome": "^0.1.11",
+		"@giphy/js-fetch-api": "^1.7.0",
+		"@giphy/react-components": "^1.9.1",
 		"@testing-library/jest-dom": "^4.2.4",
 		"@testing-library/react": "^9.3.2",
 		"@testing-library/user-event": "^7.1.2",
