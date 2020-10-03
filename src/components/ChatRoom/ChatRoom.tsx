@@ -1,6 +1,7 @@
 import React, { useCallback, useRef, useState, useEffect } from 'react';
 import { auth, storage } from '../../config/firebase';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
+
 import { ChatMessage } from '../ChatMessage/ChatMessage';
 import {
 	addMessage,
@@ -11,6 +12,7 @@ import {
 
 import styles from './ChatRoom.module.css';
 import { UploadPhotoButton } from '../UploadPhotoButton/UploadPhotoButton';
+import { GifSelector } from '../GifSelector/GifSelector';
 
 export const ChatRoom = () => {
 	const dummyRef = useRef<HTMLDivElement>(null);
@@ -92,7 +94,8 @@ export const ChatRoom = () => {
 					))}
 				<div ref={dummyRef}></div>
 			</section>
-			<div className="flex bg-gray-700 p-4 justify-between">
+			<GifSelector onGifClick={(selectedGif) => console.log(selectedGif)} />
+			<div className="flex bg-gray-700 p-2 justify-between">
 				<UploadPhotoButton
 					file={file}
 					onFileChange={setFile}
