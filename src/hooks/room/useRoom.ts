@@ -16,9 +16,19 @@ export const useRoom = () => {
 		goToRoom(id);
 	}, [user]);
 
-	return { createRoom };
+	return { createRoom, goToRoom, promptForRoom };
 };
 
 function goToRoom(id: string) {
 	window.location.href = `/${id}`;
+}
+
+function promptForRoom() {
+	const roomId = prompt('Enter room ID');
+
+	if (!roomId) {
+		return;
+	}
+
+	goToRoom(roomId);
 }

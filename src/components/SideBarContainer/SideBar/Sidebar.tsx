@@ -37,7 +37,7 @@ type Props = {
 
 export const SideBar = ({ opened, onOutsideClick }: Props) => {
 	const [user] = useAuthState(auth);
-	const { createRoom } = useRoom();
+	const { createRoom, promptForRoom } = useRoom();
 
 	return (
 		<>
@@ -61,7 +61,11 @@ export const SideBar = ({ opened, onOutsideClick }: Props) => {
 								title="Create a room"
 								faIcon={faPlusCircle}
 							/>
-							<SideBarLink link="#" title="Join room" faIcon={faWalking} />
+							<SideBarLink
+								link={promptForRoom}
+								title="Join room"
+								faIcon={faWalking}
+							/>
 
 							{user && (
 								<SideBarLink
