@@ -55,15 +55,15 @@ export const SideBar = ({ opened, onOutsideClick }: Props) => {
 
 						<nav>
 							<SideBarLink
-								href="#"
+								link="#"
 								title="Create a room"
 								faIcon={faPlusCircle}
 							/>
-							<SideBarLink href="#" title="Join room" faIcon={faWalking} />
+							<SideBarLink link="#" title="Join room" faIcon={faWalking} />
 
 							{user && (
 								<SideBarLink
-									href={signOut}
+									link={signOut}
 									title="Sign out"
 									faIcon={faSignOutAlt}
 								/>
@@ -71,7 +71,7 @@ export const SideBar = ({ opened, onOutsideClick }: Props) => {
 						</nav>
 						<div className="h-full flex flex-col justify-end">
 							<SideBarLink
-								href="https://pl.linkedin.com/in/zdzislaw-bela"
+								link="https://pl.linkedin.com/in/zdzislaw-bela"
 								title="Support"
 								faIcon={faLifeRing}
 								newWindow
