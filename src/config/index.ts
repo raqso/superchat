@@ -1,4 +1,8 @@
-export const config = {
+if (!process.env.REACT_APP_GIPHY_API_KEY) {
+	throw Error('No Giphy API key provided!');
+}
+
+const config = {
 	firebase: {
 		apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
 		authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
@@ -9,4 +13,7 @@ export const config = {
 		appId: process.env.REACT_APP_FIREBASE_APP_ID,
 		measurementId: process.env.REACT_APP_FIREBASE_MEASURMENT_ID,
 	},
+	giphyApiKey: process.env.REACT_APP_GIPHY_API_KEY,
 };
+
+export { config };
