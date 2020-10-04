@@ -21,7 +21,7 @@ export function GifSelector({ onGifClick }: Props) {
 	} = useGifSelector();
 
 	return (
-		<div className="w-full flex flex-col bg-gray-800">
+		<div className="w-full flex flex-col bg-gray-800 px-6 mr-2">
 			<SearchBox
 				searchText={searchText}
 				handleSearchTextChange={handleSearchTextChange}

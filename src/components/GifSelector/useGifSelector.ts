@@ -4,7 +4,7 @@ import { debounce } from 'debounce';
 
 import { config } from '../../config';
 
-const MAX_GIFS = 3;
+const MAX_GIFS = 8;
 const SEARCH_DELAY_IN_MS = 75;
 
 const giphyFetch = new GiphyFetch(config.giphyApiKey);
