@@ -7,9 +7,7 @@ import { SearchBox } from './SearchBox/SearchBox';
 
 type Props = {
 	search?: string;
-	onGifClick?:
-		| ((gif: IGif, e: SyntheticEvent<HTMLElement, Event>) => void)
-		| undefined;
+	onGifClick?: (gif: IGif, e: SyntheticEvent<HTMLElement, Event>) => void;
 };
 
 export function GifSelector({ onGifClick }: Props) {
