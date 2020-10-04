@@ -4,13 +4,14 @@ import { debounce } from 'debounce';
 
 import { config } from '../../config';
 
+const DEFAULT_GIFS_SEARCH = 'funny';
 const MAX_GIFS = 8;
 const SEARCH_DELAY_IN_MS = 75;
 
 const giphyFetch = new GiphyFetch(config.giphyApiKey);
 
 export const useGifSelector = () => {
-	const [searchText, setSearchText] = useState('dogs');
+	const [searchText, setSearchText] = useState('');
 	const [carouselKey, setCarouselKey] = useState(1);
 
 	const handleSearchTextChange = (
@@ -21,7 +22,10 @@ export const useGifSelector = () => {
 
 	const fetchGifs = useCallback(
 		(offset: number) =>
-			giphyFetch.search(searchText, { offset, limit: MAX_GIFS }),
+			giphyFetch.search(searchText || DEFAULT_GIFS_SEARCH, {
+				offset,
+				limit: MAX_GIFS,
+			}),
 		[searchText]
 	);
 
