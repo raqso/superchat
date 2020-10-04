@@ -6,9 +6,14 @@ import {
 	faFacebook,
 } from '@fortawesome/free-brands-svg-icons';
 
-import firebase from 'firebase/app';
 import { auth } from '../../config/firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import {
+	signInWithFacebook,
+	signInWithGithub,
+	signInWithGoogle,
+	signOut,
+} from '../../helpers/auth';
 
 const buttonClasses =
 	'bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white ml-5 px-2 sm:py-0 sm:px-2 border border-blue-500 hover:border-transparent rounded';
@@ -48,22 +53,3 @@ export const SignInOut = () => {
 		</button>
 	);
 };
-
-function signInWithGoogle() {
-	const provider = new firebase.auth.GoogleAuthProvider();
-	auth.signInWithPopup(provider);
-}
-
-function signInWithGithub() {
-	const provider = new firebase.auth.GithubAuthProvider();
-	auth.signInWithPopup(provider);
-}
-
-function signInWithFacebook() {
-	const provider = new firebase.auth.FacebookAuthProvider();
-	auth.signInWithPopup(provider);
-}
-
-function signOut() {
-	auth.signOut();
-}
