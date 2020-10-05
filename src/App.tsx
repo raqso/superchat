@@ -1,9 +1,9 @@
 import React from 'react';
 
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { ChatRoom } from './components/ChatRoom/ChatRoom';
 
 import { auth } from './config/firebase';
+import { ChatRoom } from './components/ChatRoom/ChatRoom';
 import { SignInOut } from './components/SignInOut/SignInOut';
 import { Logo } from './components/Logo/Logo';
 import { LoginInfo } from './components/LoginInfo/LoginInfo';

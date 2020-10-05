@@ -13,6 +13,7 @@ import { Overlay } from '../Overlay/Overlay';
 import { Logo } from '../../Logo/Logo';
 import { signOut } from '../../../helpers/auth';
 import { SideBarLink } from '../SideBarLink/SideBarLink';
+import { useRoom } from '../../../hooks/room/useRoom';
 
 type UserInfoProps = {
 	user: firebase.User;
@@ -36,6 +37,7 @@ type Props = {
 
 export const SideBar = ({ opened, onOutsideClick }: Props) => {
 	const [user] = useAuthState(auth);
+	const { createRoom, promptForRoom } = useRoom();
 
 	return (
 		<>
@@ -55,11 +57,15 @@ export const SideBar = ({ opened, onOutsideClick }: Props) => {
 
 						<nav>
 							<SideBarLink
-								link="#"
+								link={createRoom}
 								title="Create a room"
 								faIcon={faPlusCircle}
 							/>
-							<SideBarLink link="#" title="Join room" faIcon={faWalking} />
+							<SideBarLink
+								link={promptForRoom}
+								title="Join room"
+								faIcon={faWalking}
+							/>
 
 							{user && (
 								<SideBarLink

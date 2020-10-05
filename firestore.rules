@@ -10,6 +10,11 @@ service cloud.firestore {
       allow write: if canCreateMessage();
     }
 
+    match /rooms/{messageId} {
+      allow read: if isSignedIn();
+      allow write: if isSignedIn();
+    }
+
     function isSignedIn() {
       return request.auth != null;
     }

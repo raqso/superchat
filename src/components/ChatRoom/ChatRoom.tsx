@@ -2,7 +2,12 @@ import React, { useCallback, useRef, useState, useEffect } from 'react';
 import { auth, storage } from '../../config/firebase';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { ChatMessage } from '../ChatMessage/ChatMessage';
-import { addMessage, Message, messagesQuery } from '../../models/Message';
+import {
+	addMessage,
+	Message,
+	publicMessagesQuery,
+	getMessagesQueryForRoom,
+} from '../../models/Message';
 
 import styles from './ChatRoom.module.css';
 import { UploadPhotoButton } from '../UploadPhotoButton/UploadPhotoButton';
@@ -14,12 +19,13 @@ export const ChatRoom = () => {
 		dummyRef?.current?.scrollIntoView({ behavior: 'smooth' });
 	});
 
-	const [messages] = useCollectionData<Message & { id: string }>(
-		messagesQuery,
-		{
-			idField: 'id',
-		}
-	);
+	const [, roomId] = window.location.pathname.split('/');
+
+	const [messages, loading, error] = useCollectionData<
+		Message & { id: string }
+	>(roomId ? getMessagesQueryForRoom(roomId) : publicMessagesQuery, {
+		idField: 'id',
+	});
 
 	const [file, setFile] = useState<File>();
 
@@ -42,6 +48,11 @@ export const ChatRoom = () => {
 		};
 		if (messagePhoto) {
 			messageDoc.messageImageUrl = messagePhoto;
+		}
+		if (roomId) {
+			messageDoc.roomId = roomId;
+		} else {
+			messageDoc.public = true;
 		}
 
 		const isTextInvalid = formValue.replace(/  +/g, ' ');
@@ -71,7 +82,11 @@ export const ChatRoom = () => {
 			<section
 				className={`${styles.messagesContainer} bg-gray-800 py-2 px-1 sm:px-4`}
 			>
-				{messages &&
+				{loading && <h1>Loading</h1>}
+				{error && console.error(error)}
+				{!loading &&
+					!error &&
+					messages &&
 					messages.map((message) => (
 						<ChatMessage key={message.id} message={message} />
 					))}

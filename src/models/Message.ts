@@ -8,11 +8,15 @@ export interface Message {
 	displayName?: string | null;
 	createdAt: FIRESTORE.Timestamp;
 	messageImageUrl?: string;
+	roomId?: string;
+	public: boolean;
 }
 
 const MAX_MESSAGES = 25;
 const messagesRef = firestore.collection('messages');
-const messagesQuery = messagesRef
+const publicMessagesQuery = messagesRef
+	.orderBy('public')
+	.where('public', '!=', false)
 	.orderBy('createdAt')
 	.limitToLast(MAX_MESSAGES);
 
@@ -24,4 +28,10 @@ const addMessage = (
 		createdAt: FIRESTORE.FieldValue.serverTimestamp(),
 	});
 
-export { messagesQuery, addMessage };
+const getMessagesQueryForRoom = (roomId: string) =>
+	messagesRef
+		.where('roomId', '==', roomId)
+		.orderBy('createdAt')
+		.limitToLast(MAX_MESSAGES);
+
+export { publicMessagesQuery, getMessagesQueryForRoom, addMessage };
