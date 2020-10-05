@@ -1,6 +1,8 @@
 import React, { useCallback, useRef, useState, useEffect } from 'react';
 import { auth, storage } from '../../config/firebase';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
+import { IGif } from '@giphy/js-types';
+
 import { ChatMessage } from '../ChatMessage/ChatMessage';
 import {
 	addMessage,
@@ -11,13 +13,19 @@ import {
 
 import styles from './ChatRoom.module.css';
 import { UploadPhotoButton } from '../UploadPhotoButton/UploadPhotoButton';
+import { GifSelector } from '../GifSelector/GifSelector';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFilm } from '@fortawesome/free-solid-svg-icons';
+import { useChatroom } from './useChatroom';
 
 export const ChatRoom = () => {
 	const dummyRef = useRef<HTMLDivElement>(null);
-
-	useEffect(() => {
-		dummyRef?.current?.scrollIntoView({ behavior: 'smooth' });
-	});
+	const scrollToLastMessage = () =>
+		dummyRef?.current?.scrollIntoView({
+			behavior: 'smooth',
+			block: 'nearest',
+		});
+	const { gifSelectorOpened, toggleGifSelector } = useChatroom();
 
 	const [, roomId] = window.location.pathname.split('/');
 
@@ -65,8 +73,9 @@ export const ChatRoom = () => {
 
 		setFormValue('');
 		setFile(undefined);
-		dummyRef?.current?.scrollIntoView({ behavior: 'smooth' });
+		scrollToLastMessage();
 	};
+
 	const handleFormValueChange = (
 		event: React.ChangeEvent<HTMLInputElement>
 	) => {
@@ -76,6 +85,35 @@ export const ChatRoom = () => {
 	const onRemoveImage = useCallback(() => setFile(undefined), []);
 
 	const canSend = !!formValue || !!file;
+
+	const sendGif = async (gif: IGif) => {
+		try {
+			if (!auth.currentUser) {
+				return;
+			}
+
+			const { uid: userId, photoURL, displayName } = auth.currentUser;
+
+			const messageDoc: Partial<Message> = {
+				text: formValue,
+				userId,
+				photoURL,
+				displayName,
+				messageImageUrl: gif.images.downsized.url,
+			};
+
+			await addMessage(messageDoc);
+			toggleGifSelector();
+			scrollToLastMessage();
+		} catch (error) {
+			console.error(error);
+		}
+	};
+
+	useEffect(() => {
+		const SCROLL_DELAY_IN_MS = 1000;
+		setTimeout(scrollToLastMessage, SCROLL_DELAY_IN_MS);
+	}, [messages]);
 
 	return (
 		<>
@@ -92,12 +130,18 @@ export const ChatRoom = () => {
 					))}
 				<div ref={dummyRef}></div>
 			</section>
-			<div className="flex bg-gray-700 p-4 justify-between">
-				<UploadPhotoButton
-					file={file}
-					onFileChange={setFile}
-					onRemoveImage={onRemoveImage}
-				/>
+			{gifSelectorOpened && <GifSelector onGifClick={sendGif} />}
+			<div className="flex bg-gray-700 p-2 justify-between">
+				<div className="p-1">
+					<UploadPhotoButton
+						file={file}
+						onFileChange={setFile}
+						onRemoveImage={onRemoveImage}
+					/>
+					<button onClick={toggleGifSelector}>
+						<FontAwesomeIcon icon={faFilm} size="2x" color="#2d3748" />
+					</button>
+				</div>
 				<form onSubmit={sendMessage} className="flex justify-between w-full">
 					<input
 						value={formValue}
