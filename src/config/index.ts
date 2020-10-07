@@ -13,7 +13,7 @@ const config = {
 		appId: process.env.REACT_APP_FIREBASE_APP_ID,
 		measurementId: process.env.REACT_APP_FIREBASE_MEASURMENT_ID,
 	},
-	firebaseDbHost: process.env.REACT_APP_DB_HOST,
+	firebaseDbHost: process.env.REACT_APP_FIREBASE_DB_HOST,
 	giphyApiKey: process.env.REACT_APP_GIPHY_API_KEY,
 };
 
