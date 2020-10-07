@@ -1,3 +1,4 @@
+import React from 'react';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import {
 	faFacebook,
@@ -6,15 +7,14 @@ import {
 } from '@fortawesome/free-brands-svg-icons';
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { useCallback, useState } from 'react';
+
 import { Logo } from '../../components/Logo/Logo';
 import {
-	signInWithEmail,
 	signInWithFacebook,
 	signInWithGithub,
 	signInWithGoogle,
-	signUpWithEmail,
 } from '../../helpers/auth';
+import { useLogin } from './useLogin';
 
 const classes = {
 	label: 'block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2',
@@ -50,23 +50,14 @@ const ContinueWithButton = ({
 );
 
 export const Login = () => {
-	const [email, setEmail] = useState('');
-	const [password, setPassword] = useState('');
-
-	const handleEmailChange = useCallback(
-		(event: React.ChangeEvent<HTMLInputElement>) =>
-			setEmail(event.target.value),
-		[]
-	);
-
-	const handlePasswordChange = useCallback(
-		(event: React.ChangeEvent<HTMLInputElement>) =>
-			setPassword(event.target.value),
-		[]
-	);
-
-	const handleSignInWithEmail = () => signInWithEmail(email, password);
-	const handleSignUpWithEmail = () => signUpWithEmail(email, password);
+	const {
+		email,
+		password,
+		handleEmailChange,
+		handlePasswordChange,
+		handleSignInWithEmail,
+		handleSignUpWithEmail,
+	} = useLogin();
 
 	return (
 		<div className="h-screen flex flex-col justify-center items-center bg-gray-900 text-white">
