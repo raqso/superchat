@@ -16,8 +16,37 @@ function signInWithFacebook() {
 	auth.signInWithPopup(provider);
 }
 
+async function signInWithEmail(email: string, password: string) {
+	try {
+		await auth.signInWithEmailAndPassword(email, password);
+		goToHome();
+	} catch (error) {
+		console.error(error);
+	}
+}
+
+async function signUpWithEmail(email: string, password: string) {
+	try {
+		await auth.createUserWithEmailAndPassword(email, password);
+		goToHome();
+	} catch (error) {
+		console.error(error);
+	}
+}
+
+function goToHome() {
+	window.location.href = '/';
+}
+
 function signOut() {
 	auth.signOut();
 }
 
-export { signOut, signInWithGoogle, signInWithGithub, signInWithFacebook };
+export {
+	signOut,
+	signInWithGoogle,
+	signInWithGithub,
+	signInWithFacebook,
+	signInWithEmail,
+	signUpWithEmail,
+};
