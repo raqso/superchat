@@ -13,4 +13,12 @@ const storage = firebase.storage();
 
 const TIMESTAMP = firebase.firestore.FieldValue.serverTimestamp();
 
+if (config.firebaseDbHost && config.firebaseDbHost.includes('localhost')) {
+	firestore.settings({
+		host: config.firebaseDbHost,
+		ssl: false,
+		experimentalForceLongPolling: true, //this enables cypress to intercept multiple replies from firebase's webchannel protocol.
+	});
+}
+
 export { auth, firestore, storage, TIMESTAMP };
