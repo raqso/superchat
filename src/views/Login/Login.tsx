@@ -1,3 +1,4 @@
+import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import {
 	faFacebook,
 	faGithub,
@@ -12,6 +13,28 @@ import {
 	signInWithGoogle,
 } from '../../helpers/auth';
 
+type ContinueWithButtonProps = {
+	onClick: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+	icon: IconDefinition;
+	name: string;
+	color: string;
+};
+
+const ContinueWithButton = ({
+	onClick,
+	icon,
+	name,
+	color,
+}: ContinueWithButtonProps) => (
+	<button
+		className={`bg-${color}-500 hover:bg-${color}-600 py-2 px-4 rounded flex justify-start items-center`}
+		onClick={onClick}
+	>
+		<FontAwesomeIcon icon={icon} className="mr-12" />
+		Continue with {name}
+	</button>
+);
+
 export const Login = () => {
 	return (
 		<div className="h-screen flex flex-col justify-center items-center bg-gray-900 text-white">
@@ -19,27 +42,24 @@ export const Login = () => {
 			<form className="w-full max-w-sm">
 				<h1 className="text-center text-2xl my-4">Sign Up</h1>
 				<div className="flex flex-col justify-between h-full bg-gray-800 p-8 rounded-md">
-					<button
-						className="bg-red-500 hover:bg-red-600  py-2 px-4 rounded flex justify-start items-center"
+					<ContinueWithButton
+						name="Google"
+						icon={faGoogle}
+						color="red"
 						onClick={signInWithGoogle}
-					>
-						<FontAwesomeIcon icon={faGoogle} className="mr-12" />
-						Continue with Google
-					</button>
-					<button
-						className="bg-gray-900 hover:bg-gray-700 py-2 px-4 rounded flex justify-start items-center"
+					/>
+					<ContinueWithButton
+						name="Github"
+						icon={faGithub}
+						color="gray"
 						onClick={signInWithGithub}
-					>
-						<FontAwesomeIcon icon={faGithub} className="mr-12" />
-						Continue with Github
-					</button>
-					<button
-						className="bg-blue-500 hover:bg-blue-600 py-2 px-4 rounded flex justify-start items-center"
+					/>
+					<ContinueWithButton
+						name="Facebook"
+						icon={faFacebook}
+						color="blue"
 						onClick={signInWithFacebook}
-					>
-						<FontAwesomeIcon icon={faFacebook} className="mr-12" />
-						Continue with Facebook
-					</button>
+					/>
 				</div>
 			</form>
 		</div>
