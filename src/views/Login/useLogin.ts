@@ -1,5 +1,6 @@
 import { useCallback, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import LogRocket from 'logrocket';
 
 import { useNotification } from './../../contexts/NotificationContext';
 import {
@@ -41,7 +42,15 @@ export const useLogin = () => {
 				addNotification({ text: error.message, type: 'error' });
 
 			try {
-				await signInFn();
+				const { user } = await signInFn();
+				if (!user) {
+					return;
+				}
+
+				LogRocket.identify(user.uid, {
+					name: user.displayName || '',
+					email: user.email || '',
+				});
 				displaySuccess();
 				goHome();
 			} catch (error) {
