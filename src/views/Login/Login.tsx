@@ -37,6 +37,7 @@ const ContinueWithButton = ({
 	<button
 		className={`bg-${color}-500 hover:bg-${color}-600 py-2 px-4 rounded flex justify-start items-center my-2`}
 		onClick={onClick}
+		type="submit"
 	>
 		<FontAwesomeIcon icon={icon} className={className} />
 		{label}
@@ -62,7 +63,10 @@ export const Login = () => {
 			<Logo />
 			<div className="w-full max-w-sm mt-6">
 				<h1 className="text-center text-2xl my-4">Sign Up</h1>
-				<div className="flex flex-col justify-between h-full bg-gray-800 p-10 rounded-md">
+				<form
+					className="flex flex-col justify-between h-full bg-gray-800 p-10 rounded-md"
+					onSubmit={(event) => event.preventDefault()}
+				>
 					<ContinueWithButton
 						name="Google"
 						icon={faGoogle}
@@ -88,6 +92,7 @@ export const Login = () => {
 					<input
 						id="email"
 						type="email"
+						required
 						value={email}
 						onChange={handleEmailChange}
 						placeholder="john@doe.example.com"
@@ -99,6 +104,9 @@ export const Login = () => {
 					<input
 						id="password"
 						type="password"
+						placeholder="XXXXXX"
+						required
+						minLength={6}
 						value={password}
 						onChange={handlePasswordChange}
 						className={classes.input}
@@ -119,7 +127,7 @@ export const Login = () => {
 							onClick={registerWithEmail}
 						/>
 					</div>
-				</div>
+				</form>
 			</div>
 		</div>
 	);
