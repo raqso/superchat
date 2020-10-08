@@ -34,6 +34,7 @@
 	"scripts": {
 		"prestart": "yarn build:css",
 		"start": "react-scripts start",
+		"prestartEmulators:dev": "cd functions && tsc",
 		"startEmulators:dev": "firebase emulators:start --only firestore,database,functions,pubsub --import=./db/local_data_export/",
 		"startEmulators:dev:inspect": "yarn startEmulators:dev --inspect-functions",
 		"prebuild": "NODE_ENV=production yarn build:css",

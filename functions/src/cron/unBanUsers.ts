@@ -2,7 +2,7 @@ import * as functions from 'firebase-functions';
 import { db } from '../config/firebase';
 
 const LAUNCH_INTERVAL_IN_MINUTES = 5;
-const BAN_TIME_IN_MINUTES = 60;
+const BAN_TIME_IN_MINUTES = 30;
 
 const unbanUsers = functions.pubsub
 	.schedule(`every ${LAUNCH_INTERVAL_IN_MINUTES} minutes`)
@@ -17,7 +17,7 @@ const unbanUsers = functions.pubsub
 	});
 
 function getUsersToUnban() {
-	const banTimeInMs = BAN_TIME_IN_MINUTES * 60 * 100 * 1000;
+	const banTimeInMs = BAN_TIME_IN_MINUTES * 60 * 1000;
 	const unbanBeforeDate = new Date(Date.now() - banTimeInMs);
 
 	return db.collection('bans').where('bannedAt', '<=', unbanBeforeDate).get();
