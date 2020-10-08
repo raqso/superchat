@@ -7,7 +7,7 @@ import { SideBarContainer } from '../../components/SideBarContainer/SideBarConta
 
 export const Main = () => (
 	<div className="h-screen flex flex-col">
-		<header className="bg-gray-900 p-4 flex justify-between">
+		<header className="p-4 flex justify-between">
 			<SideBarContainer />
 			<Logo />
 			<SignOut />

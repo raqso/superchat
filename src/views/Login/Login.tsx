@@ -60,7 +60,7 @@ export const Login = () => {
 	} = useLogin();
 
 	return (
-		<div className="h-screen flex flex-col justify-center items-center bg-gray-900 text-white">
+		<div className="h-screen flex flex-col justify-center items-center">
 			<Logo />
 			<div className="w-full max-w-sm bg-">
 				<h1 className="text-center text-2xl my-4">Sign Up</h1>
