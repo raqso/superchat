@@ -1,27 +1,27 @@
 import React from 'react';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
-import { useAuthState } from 'react-firebase-hooks/auth';
+import { Main } from './views/Main/Main';
+import { Login } from './views/Login/Login';
+import { PrivateRoute } from './components/PrivateRoute/PrivateRoute';
+import { NotificationContextProvider } from './contexts/NotificationContext';
+import { Layout } from './Layout';
 
-import { auth } from './config/firebase';
-import { ChatRoom } from './components/ChatRoom/ChatRoom';
-import { SignInOut } from './components/SignInOut/SignInOut';
-import { Logo } from './components/Logo/Logo';
-import { LoginInfo } from './components/LoginInfo/LoginInfo';
-import { SideBarContainer } from './components/SideBarContainer/SideBarContainer';
-
-const App = () => {
-	const [user] = useAuthState(auth);
-
-	return (
-		<div className="h-screen flex flex-col">
-			<header className="bg-gray-900 p-4 flex justify-between">
-				<SideBarContainer />
-				<Logo />
-				<SignInOut />
-			</header>
-			{user ? <ChatRoom /> : <LoginInfo />}
-		</div>
-	);
-};
+const App = () => (
+	<NotificationContextProvider>
+		<Router>
+			<Switch>
+				<Layout>
+					<Route path="/login">
+						<Login />
+					</Route>
+					<PrivateRoute path="/">
+						<Main />
+					</PrivateRoute>
+				</Layout>
+			</Switch>
+		</Router>
+	</NotificationContextProvider>
+);
 
 export default App;

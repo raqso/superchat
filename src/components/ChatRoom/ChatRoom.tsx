@@ -142,7 +142,10 @@ export const ChatRoom = () => {
 						<FontAwesomeIcon icon={faFilm} size="2x" color="#2d3748" />
 					</button>
 				</div>
-				<form onSubmit={sendMessage} className="flex justify-between w-full">
+				<form
+					onSubmit={sendMessage}
+					className="flex justify-between w-full text-gray-800"
+				>
 					<input
 						value={formValue}
 						placeholder="Say something nice..."
