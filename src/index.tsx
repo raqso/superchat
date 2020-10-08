@@ -7,6 +7,7 @@ import setupLogRocketReact from 'logrocket-react';
 
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import { config } from './config';
 
 ReactDOM.render(
 	<React.StrictMode>
@@ -15,7 +16,7 @@ ReactDOM.render(
 	document.getElementById('root')
 );
 
-LogRocket.init('xxxx11/xxxxxx');
+LogRocket.init(config.logRocketAppId);
 setupLogRocketReact(LogRocket);
 
 // If you want your app to work offline and load faster, you can change
