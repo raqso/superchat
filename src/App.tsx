@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { Main } from './views/Main/Main';
 import { Login } from './views/Login/Login';
+import { PrivateRoute } from './components/PrivateRoute/PrivateRoute';
 
 const App = () => (
 	<Router>
@@ -9,9 +10,9 @@ const App = () => (
 			<Route path="/login">
 				<Login />
 			</Route>
-			<Route path="/">
+			<PrivateRoute path="/">
 				<Main />
-			</Route>
+			</PrivateRoute>
 		</Switch>
 	</Router>
 );

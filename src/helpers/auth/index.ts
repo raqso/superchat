@@ -1,19 +1,22 @@
 import firebase from 'firebase/app';
 import { auth } from '../../config/firebase';
 
-function signInWithGoogle() {
+async function signInWithGoogle() {
 	const provider = new firebase.auth.GoogleAuthProvider();
-	auth.signInWithPopup(provider);
+	await auth.signInWithPopup(provider);
+	goToHome();
 }
 
-function signInWithGithub() {
+async function signInWithGithub() {
 	const provider = new firebase.auth.GithubAuthProvider();
-	auth.signInWithPopup(provider);
+	await auth.signInWithPopup(provider);
+	goToHome();
 }
 
-function signInWithFacebook() {
+async function signInWithFacebook() {
 	const provider = new firebase.auth.FacebookAuthProvider();
-	auth.signInWithPopup(provider);
+	await auth.signInWithPopup(provider);
+	goToHome();
 }
 
 async function signInWithEmail(email: string, password: string) {
