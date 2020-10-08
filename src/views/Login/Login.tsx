@@ -9,11 +9,6 @@ import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { Logo } from '../../components/Logo/Logo';
-import {
-	signInWithFacebook,
-	signInWithGithub,
-	signInWithGoogle,
-} from '../../helpers/auth';
 import { useLogin } from './useLogin';
 
 const classes = {
@@ -55,8 +50,11 @@ export const Login = () => {
 		password,
 		handleEmailChange,
 		handlePasswordChange,
-		handleSignInWithEmail,
-		handleSignUpWithEmail,
+		loginWithGoogle,
+		loginWithGithub,
+		loginWithFacebook,
+		loginWithEmail,
+		registerWithEmail,
 	} = useLogin();
 
 	return (
@@ -69,19 +67,19 @@ export const Login = () => {
 						name="Google"
 						icon={faGoogle}
 						color="red"
-						onClick={signInWithGoogle}
+						onClick={loginWithGoogle}
 					/>
 					<ContinueWithButton
 						name="Github"
 						icon={faGithub}
 						color="gray"
-						onClick={signInWithGithub}
+						onClick={loginWithGithub}
 					/>
 					<ContinueWithButton
 						name="Facebook"
 						icon={faFacebook}
 						color="blue"
-						onClick={signInWithFacebook}
+						onClick={loginWithFacebook}
 					/>
 					<span className="text-center text-gray-600 my-4">OR</span>
 					<label className={classes.label} htmlFor="email">
@@ -111,14 +109,14 @@ export const Login = () => {
 							icon={faEnvelope}
 							color="teal"
 							className="mr-4"
-							onClick={handleSignInWithEmail}
+							onClick={loginWithEmail}
 						/>
 						<ContinueWithButton
 							label="Sign Up"
 							icon={faEnvelope}
 							color="indigo"
 							className="mr-4"
-							onClick={handleSignUpWithEmail}
+							onClick={registerWithEmail}
 						/>
 					</div>
 				</div>
