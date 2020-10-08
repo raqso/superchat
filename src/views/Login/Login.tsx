@@ -60,7 +60,7 @@ export const Login = () => {
 	return (
 		<div className="h-screen flex flex-col justify-center items-center">
 			<Logo />
-			<div className="w-full max-w-sm bg-">
+			<div className="w-full max-w-sm mt-6">
 				<h1 className="text-center text-2xl my-4">Sign Up</h1>
 				<div className="flex flex-col justify-between h-full bg-gray-800 p-10 rounded-md">
 					<ContinueWithButton
