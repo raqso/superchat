@@ -1,0 +1,5 @@
+[[redirects]]
+  # A basic redirect rule for SPA
+  from = "/*"
+  to = "/index.html"
+  status = 200
