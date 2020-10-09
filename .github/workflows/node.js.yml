@@ -60,6 +60,10 @@ jobs:
           REACT_APP_FIREBASE_MEASURMENT_ID: ${{ secrets.REACT_APP_FIREBASE_MEASURMENT_ID }}
           REACT_APP_GIPHY_API_KEY: ${{ secrets.REACT_APP_GIPHY_API_KEY }}
 
+      - name: Build Firebase functions
+        run: yarn build
+        working-directory: functions
+
       - name: Archive Production Artifact
         uses: actions/upload-artifact@master
         with:
