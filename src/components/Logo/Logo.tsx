@@ -1,9 +1,9 @@
 import React from 'react';
 import './Logo.css';
 
-export const Logo = ({ withoutText = false }) => {
+export const Logo = ({ withoutText = false, className = '' }) => {
 	return (
-		<a href="/" className="flex">
+		<a href="/" className={`flex ${className}`}>
 			{!withoutText && (
 				<h1 className="text-white text-1xl my-6 mr-2 sm:text-4xl sm:my-3 sm:mr-3 left-align">
 					NorbChat
