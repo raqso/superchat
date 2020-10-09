@@ -21,7 +21,6 @@ type ContinueWithButtonProps = {
 	onClick: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 	icon: IconDefinition;
 	name?: string;
-	color: string;
 	label?: string;
 	className?: string;
 };
@@ -31,15 +30,14 @@ const ContinueWithButton = ({
 	icon,
 	name,
 	label,
-	color,
-	className = 'mr-12',
+	className = '',
 }: ContinueWithButtonProps) => (
 	<button
-		className={`bg-${color}-500 hover:bg-${color}-600 py-2 px-4 rounded flex justify-start items-center my-2`}
+		className={`${className} py-2 px-4 rounded flex justify-start items-center my-2`}
 		onClick={onClick}
 		type="submit"
 	>
-		<FontAwesomeIcon icon={icon} className={className} />
+		<FontAwesomeIcon icon={icon} className="mr-4" />
 		{label}
 		{name && `Continue with ${name}`}
 	</button>
@@ -70,19 +68,19 @@ export const Login = () => {
 					<ContinueWithButton
 						name="Google"
 						icon={faGoogle}
-						color="red"
+						className="bg-red-500 hover:bg-red-600"
 						onClick={loginWithGoogle}
 					/>
 					<ContinueWithButton
 						name="Github"
 						icon={faGithub}
-						color="gray"
+						className="bg-gray-500 hover:bg-gray-600"
 						onClick={loginWithGithub}
 					/>
 					<ContinueWithButton
 						name="Facebook"
 						icon={faFacebook}
-						color="blue"
+						className="bg-blue-500 hover:bg-blue-600"
 						onClick={loginWithFacebook}
 					/>
 					<span className="text-center text-gray-600 my-4">OR</span>
@@ -115,15 +113,13 @@ export const Login = () => {
 						<ContinueWithButton
 							label="Sign In"
 							icon={faEnvelope}
-							color="teal"
-							className="mr-4"
+							className="bg-teal-500 hover:bg-teal-600"
 							onClick={loginWithEmail}
 						/>
 						<ContinueWithButton
 							label="Sign Up"
 							icon={faEnvelope}
-							color="indigo"
-							className="mr-4"
+							className="bg-indigo-500 hover:bg-indigo-600"
 							onClick={registerWithEmail}
 						/>
 					</div>
