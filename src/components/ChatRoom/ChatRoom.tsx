@@ -15,7 +15,7 @@ import styles from './ChatRoom.module.css';
 import { UploadPhotoButton } from '../UploadPhotoButton/UploadPhotoButton';
 import { GifSelector } from '../GifSelector/GifSelector';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFilm } from '@fortawesome/free-solid-svg-icons';
+import { faFilm, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 import { useChatroom } from './useChatroom';
 
 export const ChatRoom = () => {
@@ -161,11 +161,11 @@ export const ChatRoom = () => {
 					<button
 						type="submit"
 						disabled={!canSend}
-						className={`bg-blue-500 text-white font-bold py-2 px-4 rounded-full ${
-							canSend ? 'hover:bg-blue-700' : 'opacity-50'
+						className={`flex justify-center items-center bg-transparent text-white font-bold rounded-full mx-4 ${
+							!canSend ? 'cursor-not-allowed opacity-75' : ''
 						}`}
 					>
-						Send
+						<FontAwesomeIcon icon={faPaperPlane} size="2x" />
 					</button>
 				</form>
 			</div>
