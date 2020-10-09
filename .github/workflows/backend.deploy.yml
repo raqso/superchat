@@ -8,6 +8,7 @@ on:
       - 'firestore.rules'
       - 'firestore.indexes.json'
       - 'storage.rules'
+      - '.github/workflows/backend.deploy.yml'
 
 jobs:
   test_pull_request:
