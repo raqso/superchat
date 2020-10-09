@@ -12,7 +12,7 @@ const App = () => (
 		<Router>
 			<Switch>
 				<Layout>
-					<Route path="/login">
+					<Route path="/logino">
 						<Login />
 					</Route>
 					<PrivateRoute path="/">
