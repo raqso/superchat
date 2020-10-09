@@ -36,8 +36,12 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
 
-      - name: Install Dependencies
+      - name: Install Web app Dependencies
         run: yarn --frozen-lockfile
+
+      - name: Install Firebase functions Dependencies
+        run: yarn --frozen-lockfile
+        working-directory: functions
 
       - name: Lint check
         run: yarn lint
