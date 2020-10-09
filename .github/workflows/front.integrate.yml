@@ -37,7 +37,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
 
-      - name: Install Web app Dependencies
+      - name: Install dependencies
         run: yarn --frozen-lockfile
 
       - name: Lint check

@@ -25,8 +25,9 @@ jobs:
         with:
           node-version: 10
 
-      - name: Install Web app Dependencies
+      - name: Install dependencies
         run: yarn --frozen-lockfile
+        working-directory: functions
 
       - name: Deploy to Firebase
         uses: w9jds/firebase-action@master
