@@ -6,9 +6,9 @@ import { SideBarContainer } from '../../components/SideBarContainer/SideBarConta
 
 export const Main = () => (
 	<div className="h-screen flex flex-col">
-		<header className="p-4 flex justify-start">
+		<header className="py-2 px-6 flex justify-between">
+			<Logo />
 			<SideBarContainer />
-			<Logo className="ml-4" />
 		</header>
 		<ChatRoom />
 	</div>
