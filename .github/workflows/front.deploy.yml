@@ -33,7 +33,6 @@ jobs:
           REACT_APP_FIREBASE_APP_ID: ${{ secrets.REACT_APP_FIREBASE_APP_ID }}
           REACT_APP_FIREBASE_MEASURMENT_ID: ${{ secrets.REACT_APP_FIREBASE_MEASURMENT_ID }}
           REACT_APP_GIPHY_API_KEY: ${{ secrets.REACT_APP_GIPHY_API_KEY }}
-          REACT_APP_GIPHY_API_KEY: ${{ secrets.REACT_APP_GIPHY_API_KEY }}
           REACT_APP_LOG_ROCKET_APP_ID: ${{ secrets.REACT_APP_LOG_ROCKET_APP_ID }}
 
       - name: Deploy to Firebase
