@@ -3,11 +3,11 @@ name: Deploy
 on:
   push:
     branches: [master]
-    paths:
-      - !functions/**
-      - !firestore.rules
-      - !firestore.indexes.json
-      - !storage.rules
+    paths-ignore:
+      - 'functions/**'
+      - 'firestore.rules'
+      - 'firestore.indexes.json'
+      - 'storage.rules'
 
 jobs:
   deploy:

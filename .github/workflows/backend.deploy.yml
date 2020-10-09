@@ -1,28 +1,22 @@
-name: Deploy
+name: Backend deploy
 
 on:
   push:
     branches: [master]
     paths:
-      - !functions/**
-      - !firestore.rules
-      - !firestore.indexes.json
-      - !storage.rules
+      - 'functions/**'
+      - 'firestore.rules'
+      - 'firestore.indexes.json'
+      - 'storage.rules'
 
 jobs:
-  build:
+  test_pull_request:
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [10.x]
-
     steps:
       - uses: actions/checkout@v2
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
+      - uses: actions/setup-node@v1
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: 10
 
       - name: Install Web app Dependencies
         run: yarn --frozen-lockfile
@@ -30,6 +24,6 @@ jobs:
       - name: Deploy to Firebase
         uses: w9jds/firebase-action@master
         with:
-          args: deploy --only hosting
+          args: deploy --except hosting
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
