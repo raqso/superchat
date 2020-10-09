@@ -102,6 +102,12 @@ export const ChatRoom = () => {
 				messageImageUrl: gif.images.downsized.url,
 			};
 
+			if (roomId) {
+				messageDoc.roomId = roomId;
+			} else {
+				messageDoc.public = true;
+			}
+
 			await addMessage(messageDoc);
 			toggleGifSelector();
 			scrollToLastMessage();
