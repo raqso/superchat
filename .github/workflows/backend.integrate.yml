@@ -1,13 +1,6 @@
 name: Backend build
 
 on:
-  push:
-    branches: [master]
-    paths:
-      - 'functions/**'
-      - 'firestore.rules'
-      - 'firestore.indexes.json'
-      - 'storage.rules'
   pull_request:
     branches: [master]
     paths:
