@@ -3,18 +3,8 @@ name: Frontend build
 on:
   push:
     branches: [master]
-    paths:
-      - !functions/**
-      - !firestore.rules
-      - !firestore.indexes.json
-      - !storage.rules
   pull_request:
     branches: [master]
-    paths:
-      - !functions/**
-      - !firestore.rules
-      - !firestore.indexes.json
-      - !storage.rules
 
 jobs:
   test_pull_request:
