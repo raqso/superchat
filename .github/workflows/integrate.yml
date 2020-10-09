@@ -3,8 +3,18 @@ name: Frontend build
 on:
   push:
     branches: [master]
+    paths-ignore:
+      - 'functions/**'
+      - 'firestore.rules'
+      - 'firestore.indexes.json'
+      - 'storage.rules'
   pull_request:
     branches: [master]
+    paths-ignore:
+      - 'functions/**'
+      - 'firestore.rules'
+      - 'firestore.indexes.json'
+      - 'storage.rules'
 
 jobs:
   test_pull_request:
@@ -29,10 +39,6 @@ jobs:
 
       - name: Install Web app Dependencies
         run: yarn --frozen-lockfile
-
-      - name: Install Firebase functions Dependencies
-        run: yarn --frozen-lockfile
-        working-directory: functions
 
       - name: Lint check
         run: yarn lint
