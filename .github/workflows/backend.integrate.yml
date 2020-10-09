@@ -37,7 +37,6 @@ jobs:
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-yarn-
-        working-directory: functions
 
       - name: Install Firebase functions Dependencies
         run: yarn --frozen-lockfile
