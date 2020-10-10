@@ -3,6 +3,7 @@ import { formatDistance } from 'date-fns';
 import styles from './ChatMessage.module.css';
 import { auth } from '../../config/firebase';
 import { Message } from '../../models/Message';
+import { LazyImage } from '../LazyImage/LazyImage';
 
 type Props = {
 	message: Message;
@@ -45,7 +46,11 @@ export const ChatMessage = ({
 				{text}
 				{messageImageUrl && (
 					<a href={messageImageUrl} target="_blank" rel="noopener noreferrer">
-						<img src={messageImageUrl} alt="message" className={styles.image} />
+						<LazyImage
+							src={messageImageUrl}
+							alt="message"
+							className={styles.image}
+						/>
 					</a>
 				)}
 			</p>
