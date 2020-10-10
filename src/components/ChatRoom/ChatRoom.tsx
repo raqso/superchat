@@ -40,6 +40,7 @@ export const ChatRoom = () => {
 	const [formValue, setFormValue] = useState('');
 	const sendMessage = async (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
+		setIsSending(true);
 
 		if (!auth.currentUser) {
 			return;
@@ -69,8 +70,13 @@ export const ChatRoom = () => {
 			return;
 		}
 
-		await addMessage(messageDoc);
+		try {
+			await addMessage(messageDoc);
+		} catch (error) {
+			console.error(error);
+		}
 
+		setIsSending(false);
 		setFormValue('');
 		setFile(undefined);
 		scrollToLastMessage();
@@ -83,10 +89,11 @@ export const ChatRoom = () => {
 	};
 
 	const onRemoveImage = useCallback(() => setFile(undefined), []);
-
-	const canSend = !!formValue || !!file;
+	const [isSending, setIsSending] = useState(false);
+	const canSend = !isSending && (!!formValue || !!file);
 
 	const sendGif = async (gif: IGif) => {
+		setIsSending(true);
 		try {
 			if (!auth.currentUser) {
 				return;
@@ -114,6 +121,8 @@ export const ChatRoom = () => {
 		} catch (error) {
 			console.error(error);
 		}
+
+		setIsSending(false);
 	};
 
 	useEffect(() => {
