@@ -51,7 +51,7 @@ export const ChatRoom = () => {
 			const lastMessage = messages[messages.length - 1];
 			const isCurrentUserMessage = lastMessage.userId === currentUser?.uid;
 
-			if (isCurrentUserMessage) {
+			if (isCurrentUserMessage || isOldMessage(lastMessage)) {
 				return;
 			}
 
@@ -206,4 +206,15 @@ async function uploadPhoto(photo: File) {
 	const imageUrl = await uploadTask.ref.getDownloadURL();
 
 	return imageUrl;
+}
+
+function isOldMessage(message: Message) {
+	const MESSAGE_OUTDATE_TIME_IN_SECONDS = 5;
+	const currentTimeInMiliseconds = Date.now();
+
+	return (
+		message.createdAt &&
+		currentTimeInMiliseconds - message.createdAt.toDate().getTime() >
+			MESSAGE_OUTDATE_TIME_IN_SECONDS * 1000
+	);
 }
