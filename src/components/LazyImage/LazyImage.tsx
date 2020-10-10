@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
+import styles from './LazyImage.module.css';
+
 const placeHolder =
 	'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkqAcAAIUAgUW0RjgAAAAASUVORK5CYII=';
 
@@ -8,9 +10,17 @@ type Props = React.DetailedHTMLProps<
 	HTMLImageElement
 >;
 
-export const LazyImage = ({ src, ...rest }: Props) => {
+export const LazyImage = ({ src, className = '', ...rest }: Props) => {
 	const [imageSrc, setImageSrc] = useState(placeHolder);
 	const [imageRef, setImageRef] = useState<HTMLImageElement | null>();
+
+	const onLoad = (event: React.SyntheticEvent<HTMLImageElement, Event>) => {
+		event.currentTarget.classList.add(styles.loaded);
+	};
+
+	const onError = (event: React.SyntheticEvent<HTMLImageElement, Event>) => {
+		event.currentTarget.classList.add(styles.hasError);
+	};
 
 	useEffect(() => {
 		let didCancel = false;
@@ -49,8 +59,17 @@ export const LazyImage = ({ src, ...rest }: Props) => {
 				observer.unobserve(imageRef);
 			}
 		};
-	});
+	}, [src, imageSrc, imageRef]);
 
-	// eslint-disable-next-line jsx-a11y/alt-text
-	return <img {...rest} ref={setImageRef} src={imageSrc} />;
+	return (
+		// eslint-disable-next-line jsx-a11y/alt-text
+		<img
+			{...rest}
+			ref={setImageRef}
+			src={imageSrc}
+			className={`${className} ${styles.image}`}
+			onLoad={onLoad}
+			onError={onError}
+		/>
+	);
 };
