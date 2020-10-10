@@ -2,15 +2,13 @@ rules_version = '2';
 service firebase.storage {
   match /b/{bucket}/o {
     match /{allPaths=**} {
-      allow read, write: if isSignedIn() && isImage();
+      allow read: if isSignedIn();
+      allow write: if isSignedIn() && isImage();
     }
   }
 
   function isImage() {
-  	let type = request.resource.contentType;
-    let imageTypes = ['image/bmp','image/gif','image/png','image/jpg','image/jpeg','image/webp'];
-
-    return type in imageTypes;
+    return request.resource.contentType.matches('image/.*')
   }
 
   function isSignedIn() {
