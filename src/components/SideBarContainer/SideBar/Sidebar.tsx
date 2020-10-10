@@ -44,8 +44,8 @@ export const SideBar = ({ opened, onOutsideClick }: Props) => {
 			{opened && <Overlay />}
 			<OutsideClickHandler onOutsideClick={onOutsideClick} disabled={!opened}>
 				<aside
-					className={`bg-gray-200 font-sans transform top-0 left-0 fixed h-full overflow-auto ease-in-out transition-all duration-300 z-30 ${
-						opened ? 'translate-x-0' : '-translate-x-full'
+					className={`bg-gray-200 font-sans transform top-0 right-0 fixed h-full overflow-auto ease-in-out transition-all duration-300 z-30 ${
+						opened ? 'translate-x-0' : 'translate-x-full'
 					}`}
 				>
 					<div className="flex flex-col w-64 h-screen bg-gray-900 py-4 divide-y divide-gray-800">

@@ -9,11 +9,11 @@ export const SideBarContainer = () => {
 	const { toggleSidebar, isSidebarOpened } = useSidebar();
 
 	return (
-		<>
+		<div className="flex">
 			<button onClick={toggleSidebar}>
 				<FontAwesomeIcon icon={faBars} size="2x" color="#2d3748" />
 			</button>
 			<SideBar opened={isSidebarOpened} onOutsideClick={toggleSidebar} />
-		</>
+		</div>
 	);
 };
