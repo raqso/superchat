@@ -2,8 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import styles from './LazyImage.module.css';
 
-const placeHolder =
-	'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkqAcAAIUAgUW0RjgAAAAASUVORK5CYII=';
+import placeHolder from '../../assets/images/image-placeholder.jpg';
 
 type Props = React.DetailedHTMLProps<
 	React.ImgHTMLAttributes<HTMLImageElement>,

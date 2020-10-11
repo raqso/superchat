@@ -7,7 +7,12 @@
 	}
 }
 
+.image {
+	opacity: 0.3;
+}
+
 .loaded:not(.hasError) {
+	opacity: 1;
 	animation: loaded 300ms ease-in-out;
 }
 
