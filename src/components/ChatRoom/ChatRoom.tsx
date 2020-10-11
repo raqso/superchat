@@ -17,6 +17,10 @@ import { GifSelector } from '../GifSelector/GifSelector';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFilm, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 import { useChatroom } from './useChatroom';
+import clickButtonSound from '../../assets/audio/button_click.ogg';
+import { useAuthState } from 'react-firebase-hooks/auth';
+
+const audio = new Audio(clickButtonSound);
 
 export const ChatRoom = () => {
 	const dummyRef = useRef<HTMLDivElement>(null);
@@ -28,12 +32,34 @@ export const ChatRoom = () => {
 	const { gifSelectorOpened, toggleGifSelector } = useChatroom();
 
 	const [, roomId] = window.location.pathname.split('/');
-
+	const messagesQuery = roomId
+		? getMessagesQueryForRoom(roomId)
+		: publicMessagesQuery;
 	const [messages, loading, error] = useCollectionData<
 		Message & { id: string }
-	>(roomId ? getMessagesQueryForRoom(roomId) : publicMessagesQuery, {
+	>(messagesQuery, {
 		idField: 'id',
 	});
+
+	const [currentUser] = useAuthState(auth);
+	useEffect(() => {
+		if (!messages?.length) {
+			return;
+		}
+
+		const playSound = () => {
+			const lastMessage = messages[messages.length - 1];
+			const isCurrentUserMessage = lastMessage.userId === currentUser?.uid;
+
+			if (isCurrentUserMessage || isOldMessage(lastMessage)) {
+				return;
+			}
+
+			return audio.play();
+		};
+
+		playSound();
+	}, [messages, currentUser]);
 
 	const [file, setFile] = useState<File>();
 
@@ -189,4 +215,15 @@ async function uploadPhoto(photo: File) {
 	const imageUrl = await uploadTask.ref.getDownloadURL();
 
 	return imageUrl;
+}
+
+function isOldMessage(message: Message) {
+	const MESSAGE_OUTDATE_TIME_IN_SECONDS = 5;
+	const currentTimeInMiliseconds = Date.now();
+
+	return (
+		message.createdAt &&
+		currentTimeInMiliseconds - message.createdAt.toDate().getTime() >
+			MESSAGE_OUTDATE_TIME_IN_SECONDS * 1000
+	);
 }
