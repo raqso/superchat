@@ -1,8 +1,6 @@
 import React from 'react';
-import { useQuery } from 'react-query';
 
-import { config } from '../../config';
-import { Emoji } from './types/Emoji';
+import { useEmojis } from '../useEmojis';
 
 type Props = {
 	category: string;
@@ -10,24 +8,15 @@ type Props = {
 };
 
 export const EmojiList = ({ category, onEmojiSelected }: Props) => {
-	const { isLoading, error, data: emojisData } = useQuery(
-		`categoryData${category}`,
-		async (): Promise<Emoji[]> => {
-			const response = await fetch(
-				`${config.emojiApiUrl}/categories/${category}?access_key=${config.emojiApiKey}`
-			);
-			return response.json();
-		}
-	);
+	const { isLoading, error, emojis } = useEmojis(category);
 
 	if (isLoading) return <>Loading...</>;
-
 	if (error) return <>An error has occurred: {console.error(error)}</>;
 
 	return (
 		<div className="flex flex-wrap justify-center">
-			{emojisData &&
-				emojisData.map(({ character, slug }) => (
+			{emojis &&
+				emojis.map(({ character, slug }) => (
 					<button
 						className="p-4 md:p-2 text-xl md:text-base"
 						onClick={() => onEmojiSelected(character)}
