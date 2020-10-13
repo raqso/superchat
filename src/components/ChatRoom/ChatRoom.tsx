@@ -19,6 +19,7 @@ import { faFilm, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 import { useChatroom } from './useChatroom';
 import clickButtonSound from '../../assets/audio/button_click.ogg';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import { Drawer } from '../Drawer/Drawer';
 
 const audio = new Audio(clickButtonSound);
 
@@ -171,7 +172,9 @@ export const ChatRoom = () => {
 					))}
 				<div ref={dummyRef}></div>
 			</section>
-			{gifSelectorOpened && <GifSelector onGifClick={sendGif} />}
+			<Drawer opened={gifSelectorOpened}>
+				<GifSelector onGifClick={sendGif} />
+			</Drawer>
 			<div className="flex bg-gray-700 p-2 justify-between">
 				<div className="p-1">
 					<UploadPhotoButton
