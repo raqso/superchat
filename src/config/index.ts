@@ -20,6 +20,7 @@ const config = {
 	firebaseDbHost: process.env.REACT_APP_FIREBASE_DB_HOST,
 	giphyApiKey: process.env.REACT_APP_GIPHY_API_KEY,
 	logRocketAppId: process.env.REACT_APP_LOG_ROCKET_APP_ID,
+	emojiApiKey: process.env.REACT_APP_EMOJI_API_KEY,
 };
 
 export { config };
