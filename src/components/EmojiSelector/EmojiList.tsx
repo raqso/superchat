@@ -25,10 +25,14 @@ export const EmojiList = ({ category, onEmojiSelected }: Props) => {
 	if (error) return <>An error has occurred: {console.error(error)}</>;
 
 	return (
-		<div className="flex flex-wrap">
+		<div className="flex flex-wrap justify-center">
 			{emojisData &&
 				emojisData.map(({ character, slug }) => (
-					<button onClick={() => onEmojiSelected(character)} key={slug}>
+					<button
+						className="p-4 md:p-2 text-xl md:text-base"
+						onClick={() => onEmojiSelected(character)}
+						key={slug}
+					>
 						{character}
 					</button>
 				))}

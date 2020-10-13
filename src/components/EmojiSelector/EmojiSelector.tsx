@@ -7,6 +7,8 @@ import { Tabs } from '../Tabs/Tabs';
 import { EmojiList } from './EmojiList';
 import { Category } from './types/Category';
 
+import styles from './EmojiSelector.module.css';
+
 type Props = {
 	onEmojiSelected(emoji: string): void;
 };
@@ -29,9 +31,9 @@ export const EmojiSelector = ({ onEmojiSelected }: Props) => {
 	return (
 		<div className="flex p-4">
 			{categoriesData && (
-				<Tabs>
+				<Tabs className={styles.content}>
 					{categoriesData.map(({ slug }) => (
-						<Tab key={slug} label={slug}>
+						<Tab key={slug} label={slug} className="px-4 py-2">
 							<EmojiList category={slug} onEmojiSelected={onEmojiSelected} />
 						</Tab>
 					))}
