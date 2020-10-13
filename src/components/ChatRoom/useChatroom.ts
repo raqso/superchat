@@ -2,10 +2,28 @@ import { useCallback, useState } from 'react';
 
 export const useChatroom = () => {
 	const [gifSelectorOpened, setGifSelectorOpened] = useState(false);
+	const [isEmojiSelecting, setEmojiSelecting] = useState(false);
 
-	const toggleGifSelector = useCallback(() => {
-		setGifSelectorOpened((isOpened) => !isOpened);
-	}, []);
+	const toggleGifSelector = useCallback(
+		getToggleBooleanState(setGifSelectorOpened),
+		[]
+	);
 
-	return { gifSelectorOpened, toggleGifSelector };
+	const toggleEmojiSelector = useCallback(
+		getToggleBooleanState(setEmojiSelecting),
+		[]
+	);
+
+	return {
+		gifSelectorOpened,
+		toggleGifSelector,
+		isEmojiSelecting,
+		toggleEmojiSelector,
+	};
 };
+
+function getToggleBooleanState(
+	setStateFn: React.Dispatch<React.SetStateAction<boolean>>
+) {
+	return () => setStateFn((previousValue) => !previousValue);
+}

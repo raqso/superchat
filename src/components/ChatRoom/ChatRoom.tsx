@@ -15,7 +15,11 @@ import styles from './ChatRoom.module.css';
 import { UploadPhotoButton } from '../UploadPhotoButton/UploadPhotoButton';
 import { GifSelector } from '../GifSelector/GifSelector';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFilm, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
+import {
+	faFilm,
+	faGrinTongueWink,
+	faPaperPlane,
+} from '@fortawesome/free-solid-svg-icons';
 import { useChatroom } from './useChatroom';
 import clickButtonSound from '../../assets/audio/button_click.ogg';
 import { useAuthState } from 'react-firebase-hooks/auth';
@@ -30,7 +34,12 @@ export const ChatRoom = () => {
 			behavior: 'smooth',
 			block: 'nearest',
 		});
-	const { gifSelectorOpened, toggleGifSelector } = useChatroom();
+	const {
+		gifSelectorOpened,
+		toggleGifSelector,
+		isEmojiSelecting,
+		toggleEmojiSelector,
+	} = useChatroom();
 
 	const [, roomId] = window.location.pathname.split('/');
 	const messagesQuery = roomId
@@ -175,6 +184,9 @@ export const ChatRoom = () => {
 			<Drawer opened={gifSelectorOpened}>
 				<GifSelector onGifClick={sendGif} />
 			</Drawer>
+			<Drawer opened={isEmojiSelecting}>
+				<h1>Emoji</h1>
+			</Drawer>
 			<div className="flex bg-gray-700 p-2 justify-between">
 				<div className="p-1">
 					<UploadPhotoButton
@@ -184,6 +196,13 @@ export const ChatRoom = () => {
 					/>
 					<button onClick={toggleGifSelector}>
 						<FontAwesomeIcon icon={faFilm} size="2x" color="#2d3748" />
+					</button>
+					<button onClick={toggleEmojiSelector}>
+						<FontAwesomeIcon
+							icon={faGrinTongueWink}
+							size="2x"
+							color="#2d3748"
+						/>
 					</button>
 				</div>
 				<form
