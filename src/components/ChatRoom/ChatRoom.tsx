@@ -24,6 +24,7 @@ import { useChatroom } from './useChatroom';
 import clickButtonSound from '../../assets/audio/button_click.ogg';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { Drawer } from '../Drawer/Drawer';
+import { EmojiSelector } from '../EmojiSelector/EmojiSelector';
 
 const audio = new Audio(clickButtonSound);
 
@@ -185,7 +186,12 @@ export const ChatRoom = () => {
 				<GifSelector onGifClick={sendGif} />
 			</Drawer>
 			<Drawer opened={isEmojiSelecting}>
-				<h1>Emoji</h1>
+				<EmojiSelector
+					onEmojiSelected={(emoji) => {
+						setFormValue((currentMessage) => `${currentMessage}${emoji}`);
+						toggleEmojiSelector();
+					}}
+				/>
 			</Drawer>
 			<div className="flex bg-gray-700 p-2 justify-between">
 				<div className="p-1">
