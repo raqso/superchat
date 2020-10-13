@@ -1,8 +1,10 @@
 import React from 'react';
 import { useQuery } from 'react-query';
+
 import { config } from '../../config';
 import { Tab } from '../Tabs/Tab';
 import { Tabs } from '../Tabs/Tabs';
+import { EmojiList } from './EmojiList';
 import { Category } from './types/Category';
 
 type Props = {
@@ -10,7 +12,7 @@ type Props = {
 };
 
 export const EmojiSelector = ({ onEmojiSelected }: Props) => {
-	const { isLoading, error, data } = useQuery(
+	const { isLoading, error, data: categoriesData } = useQuery(
 		'categoriesData',
 		async (): Promise<Category[]> => {
 			const response = await fetch(
@@ -26,11 +28,11 @@ export const EmojiSelector = ({ onEmojiSelected }: Props) => {
 
 	return (
 		<div className="flex p-4">
-			{data && (
+			{categoriesData && (
 				<Tabs>
-					{data.map(({ slug, subCategories }) => (
+					{categoriesData.map(({ slug }) => (
 						<Tab key={slug} label={slug}>
-							{subCategories.join(', ')}
+							<EmojiList category={slug} onEmojiSelected={onEmojiSelected} />
 						</Tab>
 					))}
 				</Tabs>
