@@ -1,0 +1,11 @@
+.drawer {
+    max-height: 0;
+    transition: max-height 0.5s, opacity 0.2s;
+    opacity: 0;
+    overflow: auto;
+}
+
+.opened {
+    max-height: 100%;
+    opacity: 1;
+}
